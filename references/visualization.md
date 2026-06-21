@@ -24,6 +24,28 @@ A non-designer cannot judge a design from a text spec. They decide by **seeing**
 
 ---
 
+## The render → reaction → refine loop
+
+A render is a **conversation surface**, not a one-shot answer. The highest-signal design feedback often comes from the user reacting to a concrete render — not from your own aesthetic judgment.
+
+```
+render options (mode 5)
+   → elicit reaction ("어느 쪽? 왜? 거슬리는 거?")
+   → read the reaction as a constraint (often a flaw you missed)
+   → re-render with the constraint applied (before/after)
+   → confirm by seeing
+   ↻ repeat until the direction is locked
+```
+
+Why this matters:
+- A non-designer can spot a **structural** problem on a render that token-level analysis misses — e.g. "두 테두리가 겹쳐 보인다" (nested borders), "여백이 너무 넓다", "강조가 안 된다". That reaction is data; fold it back into the next render.
+- Treat the user's rendered-output feedback as the **top-priority signal**, not noise to defend against. If it contradicts a judge/score or your recommendation, the reaction usually wins — re-render with it applied and show before/after.
+- After the direction locks, **then** write the modes-1–4 sentences (designer/dev/AI-tool) so the chosen direction is hand-offable.
+
+Do NOT: render once → "pick one" → jump to the final prose request. If the reaction surfaces a new constraint, re-render before finalizing.
+
+---
+
 ## Two patterns
 
 ### 1. Option-compare (ambiguity → scope-narrowing)

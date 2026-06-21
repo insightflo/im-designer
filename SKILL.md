@@ -2,8 +2,8 @@
 name: im-designer
 description: "Translates a non-designer's vague design language into executable UI/UX requests for designers, developers, and AI tools. Handles Korean taste-words ('예쁘게' pretty, '깔끔하게' clean, '고급스럽게' premium, '세련되게' refined, '눈에 띄게' stand out, '부드럽게' soft, '이 색 말고 다른 색'), brand refs ('애플처럼'/'토스처럼'/'노션처럼' like Apple/Toss/Notion), and usability complaints ('잘 안 보여' hard to see, '선택된 건지 모르겠어', '눌러지는 건지 모르겠어'). Decomposes into component + state + property + accessibility terms and renders HTML options so the user can SEE and pick. Use whenever the user gives vague, taste-based, or brand-reference design feedback on any screen, button, card, sidebar, input, modal, dashboard, landing page, or app screen — even without the word 'design'. Skip when the user already uses precise design terms (tokens like color.primary, states like selected/hover/focus-visible, aria, WCAG contrast, or a concrete CSS change); trigger only for impression-based or brand-comparative feedback."
 metadata:
-  version: 1.2.0
-  updated: 2026-06-21
+  version: 1.3.0
+  updated: 2026-06-22
 ---
 
 # im-designer — Design Language Translator
@@ -65,6 +65,8 @@ Classify the input into one or more of these types. For each type's translation 
 | **E. Accessibility/usability fix** | can't see / can't distinguish / state confusion / unhelpful error | contrast / color-reliance / focus / hover / selected / disabled / error msg / label / keyboard / screen-reader |
 
 > Types can overlap (e.g., "active chat color" = B + E). Apply both.
+>
+> **Strategy / IA requests use a different output shape.** When Type A feedback is about structure/flow/scale — "스크롤이 너무 많아", "전체가 복잡해", "카드가 계속 늘어날 건데" — the component-shaped 18-section fits poorly. Use an **options matrix**: 2–4 candidate patterns → tradeoffs → recommendation → render. Reserve the 18-section for component/property-level edits.
 
 ### Step 2 — Translate taste-words
 Expand "예쁘게 / 깔끔하게 / 고급스럽게 / 세련되게 / 눈에 띄게 / 부드럽게 / 덜 복잡하게" into concrete design properties. For each word's possible meanings + translation example, read the **Design Language Dictionary** section of `references/dictionaries.md`.
@@ -77,7 +79,7 @@ Convert everyday phrasing to formal names.
 - **Properties:** distinguish Color / Layout / Spacing / Typography / Shape / Elevation / Interaction / Information Architecture. Full list in `references/dictionaries.md` · **Editable Properties**
 
 ### Step 4 — Apply rules
-- **Reference ("like X"):** do not clone the brand; decompose its elements. Procedure + Apple-dashboard example in `references/rules.md` · **Reference Interpretation Rules**
+- **Reference ("like X"):** do not clone the brand; decompose its elements. **For objective tokens (color hex, type scale, spacing, radius) pull from a structured source rather than guessing** — see `references/reference-sources.md`. Procedure + Apple-dashboard example in `references/rules.md` · **Reference Interpretation Rules**
 - **Color (token-first — default):** every color comes from a **defined token (`color.primary` / `color.secondary` / `surface.app`·`base`·`raised` / `text.primary`·`secondary`·`subtle` / `border.subtle`) only**. Arbitrary hex is forbidden. `color.primary` is the accent token (no `accent.primary`). If the user doesn't know a color code, don't stop — express it as a token name. **Consistency is paramount** — reuse one Primary token for selected/button/badge; derive emphasis via tint (Primary blended at a ratio). Details + default token set in `references/rules.md` · **Color Request Rules**
 - **Priority:** assign Blocker / Suggestion / Question. `references/rules.md` · **Priority Rules**
 - **Accessibility:** default checklist. No color-only state distinction, keep focus ring, etc. `references/rules.md` · **Accessibility Rules**
@@ -86,7 +88,7 @@ Convert everyday phrasing to formal names.
 Follow the **Standard Output Format** below. (The format IS the deliverable.)
 
 ## Standard Output Format
-Default output follows these 18 sections. Fill each per the situation. Mark inapplicable items "해당 없음" (n/a) — never leave blanks. **Produce the content in the user's language (Korean by default).**
+The 18-section block below is the **spec/handoff** form — use it when the user wants something to send to a designer/dev/AI tool, or asks for a full breakdown. For a **non-designer**, a vague/taste request, or any "보여줘 / 체감 / 옵션 비교" cue, **lead with mode 5 (visualization)** instead — this audience decides by seeing, not reading (see Output Modes). Fill each section per the situation; mark inapplicable items "해당 없음" (n/a) — never leave blanks. **Produce the content in the user's language (Korean by default).**
 
 ```
 [디자인 언어 번역]
@@ -173,7 +175,18 @@ Shift emphasis by purpose. Full format + writing guidance in `references/classif
 4. **Developer implementation hints** — CSS properties, design tokens, state classes, aria attributes where possible. Mark "예시" (example) if code isn't finalized.
 5. **Visualization for feel (render)** — when a non-designer can't judge from a text spec, **render options or the result as actual HTML** so they compare and pick by seeing. Always token-based; always show accessibility (color-reliance) notes. Guidance in `references/visualization.md`.
 
-> Default is to emit multiple modes at once (sections 14–17 map to modes 1–4). When the user wants "보여줘 / 체감 / 옵션 비교" or is a non-designer, **prioritize mode 5 (visualization)** — this user decides by seeing.
+> **Choose the output by audience, not by habit.** Default = the ONE mode that fits the receiver; emit the others only on request ("전체 스페셜", "다 받아줘"). Do not auto-emit all of 14–17 — that dilutes and wastes tokens.
+>
+> | Input signal | Lead with | Then (only if asked) |
+> |---|---|---|
+> | non-designer / 감각어 (예쁘게·깔끔하게) / "보여줘·체감·옵션 비교" | **mode 5 — render HTML options** | 1–4 sentences after the user picks a direction |
+> | "디자이너에게 보낼 문장" / handoff / PRD | mode 1 (designer sentence) | full 18-section |
+> | "AI 도구에 줄 명령" | mode 2 (AI command) | — |
+> | "Figma 코멘트" / "짧게" | mode 3 (short comment) | — |
+> | "개발자 구현" / "CSS·토큰" | mode 4 (dev hints) | — |
+> | ambiguous → must split interpretations | mode 5 option-compare first, **then** the matched mode | — |
+>
+> If it is still unclear which mode fits, ask in one line (or `AskUserQuestion`) — do not pick silently.
 
 ## Handling ambiguity
 Split possible interpretations into 2–4 options, recommend the most likely, then write the final request.
@@ -191,6 +204,15 @@ Split possible interpretations into 2–4 options, recommend the most likely, th
 In visualization mode, render those three as HTML side by side; the user picks one, which becomes the final request.
 
 Then write the final request.
+
+**Open taste decisions go through `AskUserQuestion`, not prose.** If section 18 (확인 필요) contains a discrete choice the user must make — 2–4 options like "액센트 Orange vs Gold", "탭 vs 전체보기", "다크 모드 포함 여부" — present it via `AskUserQuestion` (option label → direction), never as a prose bullet the user must retype. This is mandatory; free-text questions + waiting are forbidden.
+
+## Visualization loop — render → reaction → refine
+A render is not the end. For a non-designer it is the **conversation surface**. After rendering options (mode 5), explicitly elicit a reaction ("어느 쪽이 마음에 드는지, 왜"), then refine the render from that feedback. Repeat until the user locks the direction.
+
+- **A non-designer's reaction to a rendered result is higher-signal than your own aesthetic judgment.** A user noticing "테두리가 반복돼 보인다" can catch a structural flaw your token analysis missed — treat rendered-output feedback as the top-priority signal, not noise.
+- Do not stop at "pick one → write the final request". If the reaction reveals a new constraint, re-render with it applied (before/after) so the user confirms by seeing.
+- Procedure + the loop diagram in `references/visualization.md` · "The render → reaction → refine loop".
 
 ## Do NOT
 These are the quality floor. Reason: impression-words, clones, and arbitrary hex make the output un-actionable for the receiver.
@@ -216,5 +238,6 @@ For simple translations, this SKILL.md alone is enough. Read the relevant refere
 | `references/classification-and-output.md` | you need each type's (A–E) translation structure + example phrases + the 5 output-mode writing guidance |
 | `references/dictionaries.md` | you need the taste-word dictionary, or the full component/state/property vocabularies |
 | `references/rules.md` | you need reference-interpretation procedure, color (token-first) rules, priority criteria, accessibility corrections |
+| `references/reference-sources.md` | a "like X" request names a real brand/product — pull objective design tokens (color/type/spacing) from structured libraries instead of guessing |
 | `references/visualization.md` | you need to render options or results as HTML (mode 5) |
 | `references/examples.md` | you want to reference 3 worked examples + bad/good pairs |
