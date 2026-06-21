@@ -1,9 +1,9 @@
 ---
 name: im-designer
-description: "Translates a non-designer's vague design language into executable UI/UX requests for designers, developers, and AI design tools. Handles Korean taste-words like '예쁘게'(pretty), '깔끔하게'(clean), '고급스럽게'(premium), '세련되게'(refined), '눈에 띄게'(stand out), '부드럽게'(soft), '애플처럼'/'토스처럼'/'노션처럼'(like Apple/Toss/Notion), '이 색 말고 다른 색'(a different color), '활성화된 채팅 색'(active chat color), and usability complaints like '잘 안 보여'(hard to see), '선택된 건지 모르겠어'(can't tell it's selected), '눌러지는 건지 모르겠어'(can't tell it's clickable). Decomposes these into component + state + property + accessibility terms, and renders HTML options so the user can SEE and pick. Use this whenever the user gives vague, taste-based, or brand-reference design feedback on any screen, button, card, sidebar, input, tab, modal, dashboard, landing page, app screen, admin page, onboarding, or checkout — even if they never use the word 'design'. Skip when an expert already speaks in precise design terminology."
-trigger: ["예쁘게", "깔끔하게", "고급스럽게", "세련되게", "눈에 띄게", "부드럽게", "덜 복잡하게", "애플처럼", "토스처럼", "노션처럼", "리니어처럼", "에어비앤비처럼", "stripe 느낌", "vercel 스타일", "이 색 말고", "색 바꿔", "활성화된 채팅", "선택된 메뉴", "잘 안 보여", "눌러지는 건지", "비활성화된 건지", "버튼이 약해", "복잡해 보여", "한눈에 안 들어와", "디자인 피드백", "UI 수정", "UX 피드백", "보여줘", "체감", "옵션 비교", "어떻게 달라지는지", "눈으로"]
-version: 1.2.0
-updated: 2026-06-21
+description: "Translates a non-designer's vague design language into executable UI/UX requests for designers, developers, and AI tools. Handles Korean taste-words ('예쁘게' pretty, '깔끔하게' clean, '고급스럽게' premium, '세련되게' refined, '눈에 띄게' stand out, '부드럽게' soft, '이 색 말고 다른 색'), brand refs ('애플처럼'/'토스처럼'/'노션처럼' like Apple/Toss/Notion), and usability complaints ('잘 안 보여' hard to see, '선택된 건지 모르겠어', '눌러지는 건지 모르겠어'). Decomposes into component + state + property + accessibility terms and renders HTML options so the user can SEE and pick. Use whenever the user gives vague, taste-based, or brand-reference design feedback on any screen, button, card, sidebar, input, modal, dashboard, landing page, or app screen — even without the word 'design'. Skip when the user already uses precise design terms (tokens like color.primary, states like selected/hover/focus-visible, aria, WCAG contrast, or a concrete CSS change); trigger only for impression-based or brand-comparative feedback."
+metadata:
+  version: 1.2.0
+  updated: 2026-06-21
 ---
 
 # im-designer — Design Language Translator
@@ -78,7 +78,7 @@ Convert everyday phrasing to formal names.
 
 ### Step 4 — Apply rules
 - **Reference ("like X"):** do not clone the brand; decompose its elements. Procedure + Apple-dashboard example in `references/rules.md` · **Reference Interpretation Rules**
-- **Color (token-first — default):** every color comes from a **defined token (Primary / Secondary / Surface level / Text / Border) only**. Arbitrary hex is forbidden. If the user doesn't know a color code, don't stop — express it as a token name. **Consistency is paramount** — reuse one Primary token for selected/button/badge; derive emphasis via tint (Primary blended at a ratio). Details + default token set in `references/rules.md` · **Color Request Rules**
+- **Color (token-first — default):** every color comes from a **defined token (`color.primary` / `color.secondary` / `surface.app`·`base`·`raised` / `text.primary`·`secondary`·`subtle` / `border.subtle`) only**. Arbitrary hex is forbidden. `color.primary` is the accent token (no `accent.primary`). If the user doesn't know a color code, don't stop — express it as a token name. **Consistency is paramount** — reuse one Primary token for selected/button/badge; derive emphasis via tint (Primary blended at a ratio). Details + default token set in `references/rules.md` · **Color Request Rules**
 - **Priority:** assign Blocker / Suggestion / Question. `references/rules.md` · **Priority Rules**
 - **Accessibility:** default checklist. No color-only state distinction, keep focus ring, etc. `references/rules.md` · **Accessibility Rules**
 

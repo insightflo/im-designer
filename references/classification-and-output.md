@@ -78,7 +78,7 @@ Short, location-based. Order: **"problem → evidence → desired result."** One
 ### 4. Developer implementation hints
 CSS properties, design tokens, state classes, aria attributes where possible. **Mark "예시" (example) if code isn't finalized** — never present unfinalized code as definitive.
 
-Examples: state class `.chat-list-item.is-selected`; tokens `surface.base` / `accent.primary`; aria `aria-selected="true"`; keep `:focus-visible` / `:hover` / `:active`.
+Examples: state class `.chat-list-item.is-selected`; tokens `surface.base` / `color.primary`; aria `aria-selected="true"`; keep `:focus-visible` / `:hover` / `:active`.
 
 ### 5. Visualization for feel (render)
 When a non-designer can't judge from text, **render options or the result as actual HTML** so they compare and pick by seeing. Two patterns: option-comparison (narrow ambiguity) and before/after (confirm result). Full guidance + reusable HTML skeleton in `visualization.md`.

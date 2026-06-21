@@ -4,6 +4,8 @@
 >
 > Translate a non-designer's vague design language into executable UI/UX requests that designers, developers, and AI design tools can act on immediately.
 
+> **참고 (v1.2.0):** 내부 지시문(`SKILL.md`, `references/`)은 **토큰 효율을 위해 영어**로 작성됩니다. **출력은 기본적으로 한국어**(사용자 언어)로 생성됩니다 — 영문은 효율만 위함이며 산출물은 한국어입니다. 영문화로 토큰 소모가 약 절반 감소했습니다.
+
 ---
 
 ## 왜 필요한가
@@ -116,13 +118,15 @@ ln -s ~/Projects/skills/im-designer ~/.claude/skills/im-designer
 
 | 토큰 | 예시 값 | 쓰임 |
 |------|--------|------|
-| `color.primary` | `#2563eb` | 주 액션·포인트·강조 |
+| `color.primary` | `#2563eb` | 주 액션·포인트·강조(= accent 토큰) |
 | `color.primary.tint` | Primary @10% | selected/active 배경 |
 | `color.secondary` | `#64748b` | 보조 액션 |
-| `surface.base` | `#ffffff` | 카드·기본면 |
 | `surface.app` | `#f4f6f9` | 화면 배경 |
+| `surface.base` | `#ffffff` | 카드·기본면 |
+| `surface.raised` | `#ffffff` + 그림자 | 떠 있는 카드·모달·패널 |
 | `text.primary` | `#1d1d1f` | 본문 |
-| `text.subtle` | `#6e6e73` | 보조 설명 |
+| `text.secondary` | `#4b5563` | 캡션·보조 텍스트 |
+| `text.subtle` | `#6e6e73` | 흐린 설명·플레이스홀더 |
 | `border.subtle` | `#e5e7eb` | 구분선 |
 
 ---

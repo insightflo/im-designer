@@ -23,14 +23,18 @@ Reference interpretation, color request, priority, and accessibility rules. Outp
 
 | Token | Example value | Use |
 |-------|---------------|-----|
-| `color.primary` | #2563eb | primary action / point / emphasis |
+| `color.primary` | #2563eb | primary action / point / emphasis (this IS the accent token) |
 | `color.primary.tint` | Primary @10% | selected/active background |
 | `color.secondary` | #64748b | secondary action |
-| `surface.base` | #ffffff | card / base surface |
 | `surface.app` | #f4f6f9 | page background |
+| `surface.base` | #ffffff | flat card / base surface |
+| `surface.raised` | #ffffff + elevation shadow | elevated card / modal / raised panel |
 | `text.primary` | #1d1d1f | body text |
-| `text.subtle` | #6e6e73 | supporting text |
+| `text.secondary` | #4b5563 | caption / secondary text |
+| `text.subtle` | #6e6e73 | muted / placeholder |
 | `border.subtle` | #e5e7eb | divider |
+
+Note: `color.primary` **is** the accent token — do not invent `accent.primary`; reuse `color.primary` for all emphasis. Every file uses this exact vocabulary (dotted identifiers).
 
 ### When the user lacks a color code
 **Never force the user to provide a hex code.** Express it in design-system (token) language instead.

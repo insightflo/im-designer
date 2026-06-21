@@ -48,7 +48,7 @@ Worked examples and bad/good pairs. Use as the quality bar. Output is in the use
 - **Designer:** Apple의 제품 랜딩페이지를 그대로 따라 하기보다는, 절제된 색상, 넓은 여백, 가독성 높은 타이포그래피, 중립적인 배경, 명확한 상태 표현을 참고해 데이터 대시보드에 맞게 적용해 주세요. 핵심 목표는 사용자가 KPI, 차트, 필터 상태를 빠르게 이해하고 의사결정할 수 있게 만드는 것입니다. 대형 히어로 이미지나 감성적 스크롤 연출보다는 카드 기반 정보 구조, 명확한 숫자 위계, 중립 배경, 제한된 포인트 컬러를 우선해 주세요.
 - **AI-tool command:** Create a clean Apple-inspired data dashboard without copying Apple's landing page. Use generous spacing, neutral surfaces (base/raised), strong typographic hierarchy, subtle dividers, minimal shadows, restrained accent colors. Prioritize KPI cards, readable charts, clear filters, distinguishable selected states. Structure KPI → primary chart → detail table. Avoid hero sections, gradients, excessive motion, or anything reducing data readability.
 - **Figma comment:** "Apple처럼"을 랜딩페이지 복제가 아니라 절제된 색·여백·타이포 위계·중립 배경·명확한 상태 표현으로 해석해 대시보드에 적용해 주세요.
-- **Dev hints:** tokens `surface.base`/`surface.raised`/`text.primary`/`text.secondary`/`accent.primary`/`border.subtle`; separate KPI card, ChartCard, FilterBar, SidebarNav, DataTable.
+- **Dev hints:** tokens `surface.base`/`surface.raised`/`text.primary`/`text.secondary`/`color.primary`/`border.subtle`; separate KPI card, ChartCard, FilterBar, SidebarNav, DataTable.
 - **Needs confirmation:** which Apple screen is the reference; light vs dark mode priority.
 
 ---

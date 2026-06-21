@@ -36,11 +36,20 @@ Render the interpretations of an ambiguous request side by side; the user picks 
 Show the chosen direction applied, next to current — or just the applied result cleanly.
 - Layout: **decision summary + applied result + token table (baseline values) + accessibility note**
 - Showing "one Primary token unifies selected/button/badge" makes consistency tangible.
+- Reuse the option-compare skeleton below — replace the multi-option `.grid` with a single applied-result panel, and append a token `<table>` listing the baseline values (per the Deliverable format). A minimal token-table fragment:
+
+```html
+<table class="tokens">
+  <tr><th>Token</th><th>Value</th><th>Use</th></tr>
+  <tr><td><span class="swatch" style="background:var(--c-primary)"></span>color.primary</td><td><code>#2563eb</code></td><td>primary action / accent</td></tr>
+  <tr><td><span class="swatch" style="background:var(--c-primary-tint)"></span>color.primary.tint</td><td><code>Primary @10%</code></td><td>selected background</td></tr>
+</table>
+```
 
 ---
 
 ## Rendering principles (prevent confusion)
-- **At most 3 options.** More causes confusion. (Current state is separate, not an option.)
+- **Render 2–3 options (never 1, never 4+).** More causes confusion. (Current state is separate, not an option.)
 - **Vary only one property between options** (background vs bar vs weight). Changing several at once makes "which did I pick?" ambiguous. — Exception: a "recommended combo" panel may combine multiple cues as the optimal answer.
 - Each option gets a **clear label** + one-line effect/accessibility/cost **note**.
 - **Mark the recommendation** and explain why.
