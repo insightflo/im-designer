@@ -1,0 +1,33 @@
+{
+  "skill_name": "im-designer",
+  "evals": [
+    {
+      "id": 1,
+      "name": "component-edit-selected-chat",
+      "prompt": "채팅 목록에서 활성화된 채팅은 색상이 변했으면 좋겠어.",
+      "expected_output": "표준 18항목 형식 출력. 요청 유형 = 컴포넌트 수정 + 접근성 점검. ChatListItem의 selected 상태를 row 전체 background-color로 강조, hover보다 selected를 더 강하게, 색상만 의존 금지(left accent bar 또는 font-weight 함께 제안), 텍스트/아이콘 색 유지. 최종 문장에 '예쁘게/활성화된 색' 같은 감상어가 그대로 남지 않아야 함.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "reference-apple-dashboard",
+      "prompt": "애플처럼 깔끔한 대시보드 만들어줘.",
+      "expected_output": "요청 유형 = 레퍼런스 해석 + 초기 요청 + 스타일 조정. Apple 랜딩페이지 복제가 아니라 절제된 색/여백/타이포 위계/중립 배경을 대시보드에 맞게 변환. 가져올 요소와 제외할 요소(히어로 이미지, 과한 스크롤 애니메이션)를 명시. 우선순위 Question(어느 Apple 화면 기준인지 확인). '브랜드를 그대로 복제' 지시가 없어야 함.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "component-button-affordance",
+      "prompt": "버튼이 좀 더 눌러보고 싶게 보였으면 좋겠어.",
+      "expected_output": "요청 유형 = 컴포넌트 수정 + 스타일 조정. Button default/hover/active 상태의 배경 대비·padding·label weight·hover/pressed 추가로 affordance 강조. label 문구/위치/레이아웃 유지. focus-visible 유지 명시. 과한 shadow/장식 지양. 우선순위 Suggestion. primary vs secondary 확인 필요 표기.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "ux-feedback-style-mixed",
+      "prompt": "이 랜딩페이지 첫 화면이 너무 밋밋하고 뭘 눌러야 할지 모르겠어. 좀 세련되게 바꿔줘.",
+      "expected_output": "요청 유형 = UX 피드백 + 시각 스타일 번역. '밋밋함/뭘 눌러야 할지 모름'을 CTA 위계 부족·정보 구조·대비 문제로 분해. '세련되게'를 색상 절제·일관된 radius/spacing/가벼운 shadow·명확한 hierarchy로 번역(감각어 그대로 남기지 않음). 사용자 원문 보존. Blocker/Suggestion/Question 중 근거 기반 우선순위 부여.",
+      "files": []
+    }
+  ]
+}
