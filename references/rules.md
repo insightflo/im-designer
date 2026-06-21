@@ -1,154 +1,114 @@
-# 규칙 (Rules)
+# Rules
 
-레퍼런스 해석, 색상 요청, 우선순위, 접근성 규칙을 담는다.
+Reference interpretation, color request, priority, and accessibility rules. Output language is the user's language (Korean by default); English here is for token efficiency.
 
-## 목차
-- Color Request Rules (색상 요청 규칙)
-- Reference Interpretation Rules (레퍼런스 해석 규칙)
-- Priority Rules (우선순위)
-- Accessibility Rules (접근성)
-
----
-
-## Color Request Rules (색상 요청 규칙)
-
-### 토큰 우선 — 기본 규칙 (강제)
-**모든 색은 정의된 토큰에서만 선택한다. 임의 색상코드(#xxxxxx)는 금지.** 통일성이 최우선이다.
-- 같은 목적에는 같은 토큰을 재사용한다. 예: selected 배경·주 버튼·알림 뱃지가 모두 강조라면 **Primary 토큰 하나**로 통일 — Primary를 바꾸면 셋이 같이 바뀌어 통일이 유지된다.
-- 강조의 "강도"는 색을 새로 만들지 말고 **tint(Primary를 섞은 비율)** 로 파생시킨다. 예: selected = Primary 10% tint. Primary가 바뀌면 tint도 자동으로 따라간다.
-- 디자인 시스템 토큰이 이미 존재하면 그 토큰을 최우선으로 쓴다. 없으면 아래 "기본 토큰 세트"를 **제안(예시)** 으로 제시하고, 실제 브랜드에 맞춰 교체하라고 안내한다.
-- 임의 코드를 써야 하는 자리(임시 모업 등)에도 반드시 "예시/제안"이라고 표시하고 확정값처럼 말하지 않는다.
-
-**기본 토큰 세트 (제안 — 브랜드 토큰이 없을 때 출발점):**
-
-| 토큰 | 예시 값 | 쓰임 |
-|------|--------|------|
-| `color.primary` | #2563eb | 주 액션·포인트·강조 |
-| `color.primary.tint` | Primary @10% | selected/active 배경 |
-| `color.secondary` | #64748b | 보조 액션 |
-| `surface.base` | #ffffff | 카드·기본면 |
-| `surface.app` | #f4f6f9 | 화면 배경 |
-| `text.primary` | #1d1d1f | 본문 |
-| `text.subtle` | #6e6e73 | 보조 설명 |
-| `border.subtle` | #e5e7eb | 구분선 |
-
-### 색상코드를 모를 때
-사용자가 정확한 색상코드를 모르면 **억지로 색상코드를 요구하지 않는다.** 대신 디자인 시스템(토큰) 언어로 표현한다.
-
-**디자인 시스템 언어 예시:**
-- "`color.primary`의 10% tint를 selected background로 사용"
-- "기본 surface보다 한 단계 강조된 neutral background 사용"
-- "hover보다 강하고 error/warning보다 약한 강조 수준"
-- "text color는 유지하고 background-color만 변경"
-- "색상만으로 상태를 구분하지 않고 accent bar를 함께 사용"
-
-**색상코드를 제안해야 할 때의 형식:**
-```
-- 제안 색상: #F3F7FA
-- 용도: selected row background
-- 주의: 실제 브랜드 컬러와 디자인 시스템이 있다면 그 토큰을 우선 사용
-```
-
-**핵심:** 브랜드 컬러가 없는 상황에서는 임의 코드를 확정값처럼 말하지 않는다. 반드시 "제안" 또는 "예시"로 표시한다. 디자인 시스템이 존재하면 그 토큰을 우선한다.
+## Contents
+- Color Request Rules (token-first)
+- Reference Interpretation Rules
+- Priority Rules
+- Accessibility Rules
 
 ---
 
-## Reference Interpretation Rules (레퍼런스 해석 규칙)
-사용자가 "어디처럼 해줘"라고 말하면 **브랜드를 복제하지 않는다.** 특정 회사나 제품의 고유 UI를 그대로 따라 하라고 지시하지 않는다.
+## Color Request Rules (token-first)
 
-**분해 절차:**
-1. 레퍼런스 브랜드 또는 제품을 식별한다.
-2. 사용자가 만들려는 화면 유형을 식별한다.
-3. 레퍼런스의 어떤 요소가 현재 화면 목적에 맞는지 고른다.
-4. 맞지 않는 요소는 명시적으로 제외한다.
-5. 현재 화면 목적에 맞는 디자인 언어로 변환한다.
+### Token-first — the default rule (enforced)
+**Every color is chosen from a defined token only. Arbitrary hex (#xxxxxx) is forbidden.** Consistency is paramount.
+- Reuse one token for one purpose. Example: if selected background, primary button, and unread badge are all emphasis, unify them on **one `color.primary` token** — change Primary and all three change together, preserving consistency.
+- Express emphasis "intensity" as a **tint (Primary blended at a ratio)**, not a new color. Example: selected = Primary 10% tint. When Primary changes, the tint follows automatically.
+- If a design-system token already exists, use it first. If none exists, offer the "Default token set" below as a **proposal (example)** and note it should be replaced to match the brand.
+- Anywhere an arbitrary code is unavoidable (a throwaway mockup), mark it "예시/제안" (example/proposal) — never present it as definitive.
 
-### 예시: "애플처럼 대시보드"
+**Default token set (proposal — starting point when no brand token exists):**
 
-**잘못된 해석:**
-> "Apple 웹사이트처럼 큰 히어로 이미지와 감성적인 스크롤 연출을 넣는다."
+| Token | Example value | Use |
+|-------|---------------|-----|
+| `color.primary` | #2563eb | primary action / point / emphasis |
+| `color.primary.tint` | Primary @10% | selected/active background |
+| `color.secondary` | #64748b | secondary action |
+| `surface.base` | #ffffff | card / base surface |
+| `surface.app` | #f4f6f9 | page background |
+| `text.primary` | #1d1d1f | body text |
+| `text.subtle` | #6e6e73 | supporting text |
+| `border.subtle` | #e5e7eb | divider |
 
-(왜 틀린가: Apple 제품 랜딩페이지는 데이터 대시보드 목적과 충돌한다. 화면 유형이 다르다.)
+### When the user lacks a color code
+**Never force the user to provide a hex code.** Express it in design-system (token) language instead.
 
-**올바른 해석:**
-> "Apple식 제품 랜딩페이지를 복제하는 것이 아니라, 절제된 색상, 넓은 여백, 명확한 타이포그래피 위계, 높은 가독성, 중립적인 배경, 부드러운 상태 표현을 대시보드에 맞게 적용한다."
+**Examples:**
+- "use `color.primary` at 10% tint for the selected background"
+- "a neutral background one step stronger than the base surface"
+- "an emphasis level stronger than hover but weaker than error/warning"
+- "keep text color; change only the background-color"
+- "don't distinguish state by color alone — pair it with an accent bar"
 
-**가져올 요소:**
-- 절제된 색상
-- 넓은 여백
-- 강한 타이포그래피 위계
-- 중립적인 배경
-- 단순한 카드 구조
-- 부드러운 hover/selected 상태
-- 불필요한 장식 제거
-- 데이터가 먼저 보이는 구성
+---
 
-**제외할 요소:**
-- 제품 랜딩페이지식 대형 히어로 이미지
-- 과한 스크롤 애니메이션
-- 마케팅 카피 중심 구성
-- 데이터 밀도를 지나치게 낮추는 레이아웃
-- 장식적인 그래픽 중심 화면
+## Reference Interpretation Rules
+When the user says "like X", **do not clone the brand.** Never instruct to copy a specific company's or product's proprietary UI verbatim.
 
-**최종 요청문:**
+**Decomposition procedure:**
+1. Identify the reference brand or product.
+2. Identify the screen type the user is building.
+3. Pick which elements of the reference fit the current screen's purpose.
+4. Explicitly exclude what doesn't fit.
+5. Convert into design language suited to the current screen's purpose.
+
+### Example: "애플처럼 대시보드" (Apple-style dashboard)
+
+**Wrong interpretation:**
+> "Put a large hero image and emotional scroll choreography like Apple's website."
+
+(Why wrong: Apple's product landing page conflicts with a data dashboard's purpose — different screen types.)
+
+**Right interpretation:**
+> "Don't clone Apple's product landing page; instead apply its restrained color, generous whitespace, clear typographic hierarchy, high readability, neutral background, and gentle state expression — adapted to the dashboard."
+
+**Borrow:** restrained color / generous whitespace / strong typographic hierarchy / neutral background / simple card structure / gentle hover-selected states / decoration removed / data-first composition.
+**Exclude:** landing-page-style large hero image / excessive scroll animation / marketing-copy-centric composition / layouts that lower data density too much / decorative-graphic-centric screens.
+
+**Final request (Korean output):**
 > "Apple의 제품 랜딩페이지를 그대로 따라 하기보다는, Apple 계열 디자인에서 느껴지는 절제된 색상, 넓은 여백, 가독성 높은 타이포그래피, 명확한 상태 표현을 참고해 데이터 대시보드에 맞게 적용해 주세요. 핵심 목표는 사용자가 KPI, 차트, 필터 상태를 빠르게 이해하고 의사결정할 수 있게 만드는 것입니다."
 
-> 이 패턴을 다른 브랜드(토스/노션/리니어/stripe/vercel)에도 동일하게 적용한다. 핵심은 "무엇을 가져오고 무엇을 버릴지"를 화면 목적 기준으로 명시하는 것이다.
+> Apply this same pattern to other brands (Toss/Notion/Linear/stripe/vercel). The key is explicitly stating what to borrow and what to discard, judged by screen purpose.
 
 ---
 
-## Priority Rules (우선순위)
-피드백 또는 수정 요청에는 우선순위를 붙인다. 받는 쪽이 어디부터 손대야 할지 알게 한다.
+## Priority Rules
+Attach a priority to every feedback or edit request, so the receiver knows where to start.
 
 ### Blocker
-사용자가 작업을 완료할 수 없는 문제. **가장 먼저 수정해야 한다.**
-
-예:
-- 버튼이 보이지 않음
-- 다음 단계가 없음
-- 오류 복구 방법이 없음
-- 필수 입력값이 무엇인지 알 수 없음
-- 선택 상태가 전혀 구분되지 않음
+The user cannot complete the task. **Fix first.**
+Examples: button invisible / no next step / no error-recovery path / required inputs unclear / selected state entirely indistinguishable.
 
 ### Suggestion
-현재 사용은 가능하지만 더 좋아질 수 있는 문제.
-
-예:
-- CTA가 조금 약함
-- 카드 간격이 좁음
-- 텍스트 위계가 덜 명확함
-- 시각적 밀도가 높음
-- hover 상태가 약함
+Currently usable but could be better.
+Examples: CTA slightly weak / card spacing tight / text hierarchy less clear / high visual density / weak hover.
 
 ### Question
-의도 확인이 먼저 필요한 부분.
+Intent needs confirming first.
+Examples: why is this info on the first screen? / who is the main user of this button? / is this state `selected` or `active`? / was the reference meant for a landing page or an app?
 
-예:
-- 왜 이 정보가 첫 화면에 있는지 확인 필요
-- 이 버튼의 주 사용자가 누구인지 확인 필요
-- 해당 상태가 selected인지 active인지 확인 필요
-- 이 레퍼런스를 랜딩페이지 기준으로 말한 것인지 앱 기준인지 확인 필요
-
-> 우선순위는 정적이지 않다. "선택 상태 구분"은 상황에 따라 Suggestion이 될 수도 Blocker에 가까울 수도 있다. 근거(관찰 가능한 증거)를 보고 판단한다.
+> Priority is not static. "Selected-state distinction" can be Suggestion or near-Blocker depending on context — judge from the observable evidence.
 
 ---
 
-## Accessibility Rules (접근성)
-접근성은 선택 사항이 아니라 **기본 점검 항목**이다.
+## Accessibility Rules
+Accessibility is **not optional** — it is a default checklist.
 
-**다음 경우에는 반드시 접근성 보정을 포함한다:**
-- 색상으로 상태를 구분하는 경우
-- selected / active / error / disabled 상태를 표현하는 경우
-- CTA를 강조하는 경우
-- 폼, 입력창, 오류 메시지를 수정하는 경우
-- 대시보드, 표, 차트처럼 정보 해석이 중요한 화면인 경우
+**Always include accessibility corrections when:**
+- Distinguishing state by color
+- Expressing selected / active / error / disabled states
+- Emphasizing a CTA
+- Editing forms, inputs, or error messages
+- Information-interpretation-heavy screens (dashboards, tables, charts)
 
-**권장 보정:**
-- 색상만으로 상태를 표현하지 않는다. (색맹·저시력 사용자, 고대비 모드에서 정보가 사라진다.)
-- selected 상태에는 background 외에 left accent bar, border, icon, font-weight 중 하나를 함께 사용한다.
-- focus ring은 제거하지 않는다. (키보드 사용자의 유일한 위치 단서다.)
-- disabled 상태는 단순히 opacity만 낮추지 않고, 텍스트 가독성을 유지한다.
-- error 메시지는 무엇이 잘못됐고 어떻게 고쳐야 하는지 설명한다. ("잘못됨"만 쓰지 않는다.)
-- 차트는 색상 외에 라벨, 범례, 패턴, 수치 표시를 함께 고려한다. (색상만으로 계열을 구분하지 않는다.)
+**Recommended corrections:**
+- Never express state by color alone. (Info vanishes for color-blind / low-vision users and in high-contrast modes.)
+- For `selected`, pair the background with one of: left accent bar, border, icon, or font-weight.
+- Never remove the focus ring. (It's the keyboard user's only location cue.)
+- For `disabled`, don't just lower opacity — keep text readable.
+- Error messages must say what's wrong and how to fix it. (Never just "잘못됨".)
+- Charts must not rely on color alone — pair with labels, legends, patterns, and numeric display.
 
-**왜 중요한가:** 색상/대비/상태 문제는 시각이 충분한 사용자에게는 안 보이지만, 그렇지 않은 사용자에게는 기능 자체가 차단된다. "기본적으로 포함"이라는 말은 "가능하면 넣자"가 아니라 "빼려면 명시적 사유가 있어야 한다"는 뜻이다.
+**Why it matters:** color/contrast/state problems are invisible to fully-sighted users but fully block function for others. "Included by default" means "you need an explicit reason to omit it," not "add it if convenient."

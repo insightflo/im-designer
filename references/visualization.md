@@ -1,88 +1,88 @@
-# 체감용 시각화 (Visualization for non-designers) — 모드 5
+# Visualization for non-designers — Mode 5
 
-비전문가는 텍스트 스펙으로 디자인을 판단하지 못한다. 읽는 것보다 **보는 것**으로 결정한다. 이 모드는 번역 결과(옵션이나 최종 결과)를 **실제 HTML로 렌더링**해 눈으로 비교·선택하게 한다.
+A non-designer cannot judge a design from a text spec. They decide by **seeing**, not reading. This mode renders the translation result (options or final result) as **actual HTML** so the user can compare and pick visually.
 
-## 목차
-- 언제 렌더링하나
-- 두 가지 패턴 (옵션 비교 / before-after)
-- 렌더링 원칙 (혼란 방지)
-- 접근성 메모 (필수)
-- 토큰 기반 (강제)
-- 산출물 형식
-- 재사용 HTML 골격
-- 체크리스트
-
----
-
-## 언제 렌더링하나
-- 사용자가 "보여줘 / 체감 / 어떻게 달라지는지 / 옵션 비교"를 원할 때
-- 디자인 용어 없이 막연히 말해서, 텍스트만으로는 의도가 좁혀지지 않을 때
-- 모호한 요청을 2~3 해석으로 펼쳐 **눈으로 하나를 고르게** 해야 할 때 → 옵션 비교 패턴
-- 최종 방향이 정해진 뒤 **결과를 확인**시켜야 할 때 → before/after 패턴
-
-> 텍스트 스펙(모드 1~4)과 시각화(모드 5)는 보완 관계. 시각화로 방향을 고른 뒤, 그 방향을 모드 1~4 문장으로 확정해 디자이너/개발자에게 전달한다.
+## Contents
+- When to render
+- Two patterns (option-compare / before-after)
+- Rendering principles (prevent confusion)
+- Accessibility notes (required)
+- Token-based (enforced)
+- Deliverable format
+- Reusable HTML skeleton
+- Checklist
 
 ---
 
-## 두 가지 패턴
+## When to render
+- The user asks to "보여줘 / 체감 / 어떻게 달라지는지 / 옵션 비교" (show me / feel it / how it changes / compare options)
+- The user speaks vaguely without design vocabulary, so text alone can't narrow the intent
+- An ambiguous request needs to be split into 2–3 interpretations and the user must **pick one by seeing** → option-compare pattern
+- After the final direction is chosen, the result needs confirming → before/after pattern
 
-### 1. 옵션 비교 (모호성 → 범위 좁히기)
-모호한 요청의 여러 해석을 나란히 렌더링 → 사용자가 눈으로 고르면 그것이 곧 명확한 요청이 된다.
-- 구성: **현재(문제) + 옵션 A/B/C** 그리드
-- 각 패널: 실제 요소 렌더 + "효과 / 접근성 / 비용" 한 줄 캡션
-- 추천 옵션에 표시 + 왜 추천하는지(주로 접근성)
-
-### 2. before / after (결과 확인)
-사용자가 고른 방향을 적용한 모습과 현재를 나란히, 또는 적용 결과만 깔끔하게.
-- 구성: **결정 요약 + 적용 결과 + 토큰 테이블(기준값) + 접근성 메모**
-- "Primary 하나로 selected·버튼·뱃지를 통일"처럼 토큰 재사용을 직접 보여주면 통일성이 체감된다.
+> Text spec (modes 1–4) and visualization (mode 5) are complementary. Narrow the direction visually, then confirm it as modes-1–4 sentences for the designer/developer.
 
 ---
 
-## 렌더링 원칙 (혼란 방지)
-- **옵션은 최대 3개.** 그 이상은 오히려 혼란. (현재 상태는 옵션에서 제외)
-- **옵션 간 한 가지 속성만 바꾼다.** (배경 vs 막대 vs 굵기) 여러 속성을 동시에 바꾸면 "뭘 고른 건지" 모호해진다. — 단, "추천 조합" 패널은 예외로 여러 단서를 합친 최적안을 보여줄 수 있다.
-- 각 옵션에 **명확한 라벨** + 효과/접근성/비용 **한 줄 메모**.
-- **추천 표시**를 붙이고 이유를 적는다.
-- 모업은 **최소** — 논의 중인 요소에 집중. 전체 앱을 그리지 않는다.
-- 라벨·메모는 한국어(사용자 언어)로.
+## Two patterns
+
+### 1. Option-compare (ambiguity → scope-narrowing)
+Render the interpretations of an ambiguous request side by side; the user picks one by seeing, which becomes the clear request.
+- Layout: **current(problem) + option A/B/C** grid
+- Each panel: the actual element rendered + a one-line "effect / accessibility / cost" caption
+- Mark the recommended option + why (usually accessibility)
+
+### 2. Before / After (result confirmation)
+Show the chosen direction applied, next to current — or just the applied result cleanly.
+- Layout: **decision summary + applied result + token table (baseline values) + accessibility note**
+- Showing "one Primary token unifies selected/button/badge" makes consistency tangible.
 
 ---
 
-## 접근성 메모 (필수 — 빠뜨리지 말 것)
-- 색상에만 의존하는 옵션에는 **"색맹/고대비 모드에서 약해짐"** 표시.
-- 각 옵션에 **색상 외 단서(막대/굵기/아이콘/위치) 유무**를 표시.
-- 사용자가 "심플"을 원해 색상 단일 단서를 택하더라도, **최소 보정 옵션**(예: 제목 font-weight 1단계 up — 거의 눈에 안 띔)을 제안해 단순함을 유지하면서 안전하게 만들 수 있음을 보여준다. 결정은 사용자.
+## Rendering principles (prevent confusion)
+- **At most 3 options.** More causes confusion. (Current state is separate, not an option.)
+- **Vary only one property between options** (background vs bar vs weight). Changing several at once makes "which did I pick?" ambiguous. — Exception: a "recommended combo" panel may combine multiple cues as the optimal answer.
+- Each option gets a **clear label** + one-line effect/accessibility/cost **note**.
+- **Mark the recommendation** and explain why.
+- **Minimal mockups** — focus on the element under discussion; don't draw the whole app.
+- Labels and notes in the user's language (Korean by default).
 
 ---
 
-## 토큰 기반 (강제)
-- 렌더링에 쓰는 모든 색은 **토큰**이어야 한다 (`references/rules.md` · Color Request Rules 참조).
-- CSS 변수를 토큰으로 정의하고(`--c-primary` 등), 모든 요소가 그 변수를 참조하게 한다.
-- 임의 hex를 직접 쓰지 않는다. (아바타 등 장식의 다양한 색도 토큰 팔레트 안에서.)
-- 적용 결과 패턴에서는 **토큰 테이블**을 함께 보여줘 "기준값"을 눈으로 확인시킨다.
+## Accessibility notes (required — don't skip)
+- Mark color-only-reliant options as **"weakens in color-blind/high-contrast mode"**.
+- For each option, note whether a **non-color cue** (bar/weight/icon/position) is present.
+- Even if the user picks a single color cue for "simplicity", show a **minimal-reinforcement option** (e.g., bump title font-weight one step — barely visible) that preserves simplicity while staying safe. The user decides.
 
 ---
 
-## 산출물 형식
-- **단일 `.html` 파일** (CSS는 `<style>`에 인라인, 외부 의존성 최소).
-- 시스템 폰트 스택(`-apple-system, "Pretendard", "Apple SD Gothic Neo", sans-serif`) — 별도 폰트 로딩 없이 어디서나 깨지지 않게.
-- 저장 후 브라우저로 `open`.
-- self-contained — 복사/공유 가능.
+## Token-based (enforced)
+- Every color in the render must be a **token** (see `rules.md` · Color Request Rules).
+- Define CSS variables as tokens (`--c-primary`, etc.); every element references the variable.
+- No arbitrary hex directly (even decorative avatar colors stay within the token palette).
+- In the applied-result pattern, show a **token table** so the "baseline values" are visible.
 
 ---
 
-## 재사용 HTML 골격
-아래 골격을 복사해 채운다. 토큰은 `:root`에서 한 번 정의 → 전체가 통일. 옵션 비교 패턴의 뼈대.
+## Deliverable format
+- **A single `.html` file** (CSS inline in `<style>`; minimal external dependencies).
+- System font stack (`-apple-system, "Pretendard", "Apple SD Gothic Neo", sans-serif`) — renders everywhere without font loading.
+- Save then `open` in the browser.
+- Self-contained — copyable and shareable.
+
+---
+
+## Reusable HTML skeleton
+Copy and fill this skeleton. Tokens are defined once in `:root` → everything stays unified. Backbone of the option-compare pattern.
 
 ```html
 <!DOCTYPE html>
 <html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>im-designer 시각화</title>
+<title>im-designer visualization</title>
 <style>
   :root{
-    /* 토큰(기준값) — 브랜드 토큰이 있으면 여기만 교체 */
+    /* tokens (baseline values) — replace here if brand tokens exist */
     --c-primary:#2563eb; --c-primary-tint:#e8effd; --c-secondary:#64748b;
     --c-surface-app:#f4f6f9; --c-surface-base:#ffffff;
     --c-text:#1d1d1f; --c-text-subtle:#6e6e73; --c-border:#e5e7eb;
@@ -105,24 +105,24 @@
   .opt .title{font-size:16px;font-weight:700;flex:1;}
   .opt .badge{font-size:11px;font-weight:800;color:#fff;background:var(--c-primary);padding:3px 8px;border-radius:999px;}
   .opt .desc{padding:0 18px 12px;font-size:13px;color:var(--c-text-subtle);}
-  /* === 여기에 실제 요소(컴포넌트) 렌더링 CSS 작성 === */
+  /* === write the actual element (component) render CSS here === */
   .note{padding:12px 18px 16px;font-size:12.5px;border-top:1px dashed var(--c-border);background:#fafbfc;color:var(--c-text-subtle);}
   .note b{color:var(--c-text);}
   .ok{color:#15803d;} .warn{color:#b45309;}
 </style></head>
 <body><div class="wrap">
-  <div class="eyebrow">im-designer · 체감용 시각화</div>
-  <h1>[요청 한 줄 요약]</h1>
-  <p class="lede">[모호한 요청이 N가지로 해석됨 — 눈으로 고르세요]</p>
+  <div class="eyebrow">im-designer · visualization</div>
+  <h1>[one-line request summary]</h1>
+  <p class="lede">[ambiguous request has N interpretations — pick by seeing]</p>
   <div class="grid">
-    <!-- 옵션 A (추천) -->
+    <!-- Option A (recommended) -->
     <section class="opt rec">
-      <div class="head"><span class="tag">옵션 A</span><span class="title">[방향]</span><span class="badge">추천</span></div>
-      <div class="desc">[한 줄 설명]</div>
-      <!-- 실제 요소 렌더 -->
-      <div class="note"><span class="ok"><b>✓</b> [접근성]</span><br><b>[비용/특징]</b></div>
+      <div class="head"><span class="tag">옵션 A</span><span class="title">[direction]</span><span class="badge">추천</span></div>
+      <div class="desc">[one-line description]</div>
+      <!-- actual element render -->
+      <div class="note"><span class="ok"><b>✓</b> [accessibility]</span><br><b>[cost/feature]</b></div>
     </section>
-    <!-- 옵션 B -->
+    <!-- Option B -->
     <section class="opt"><!-- ... --></section>
   </div>
 </div></body></html>
@@ -130,11 +130,11 @@
 
 ---
 
-## 체크리스트 (렌더링 전 확인)
-- [ ] 옵션이 2~3개인가 (현재 상태는 별도)
-- [ ] 옵션 간 한 속성만 다른가 (추천 조합 패널은 예외)
-- [ ] 각 옵션에 라벨 + 효과/접근성/비용 메모가 있는가
-- [ ] 색상 의존도(접근성)가 각 옵션에 표시되어 있는가
-- [ ] 모든 색이 토큰인가 (임의 hex 없음)
-- [ ] 추천이 표시되어 있고 이유가 적혀 있는가
-- [ ] 단일 HTML 파일, 시스템 폰트, 외부 의존성 최소인가
+## Checklist (before rendering)
+- [ ] 2–3 options (current state separate)
+- [ ] only one property varies between options (recommended-combo panel excepted)
+- [ ] each option has a label + effect/accessibility/cost note
+- [ ] color-reliance (accessibility) marked per option
+- [ ] all colors are tokens (no arbitrary hex)
+- [ ] recommendation marked with reason
+- [ ] single HTML file, system font, minimal dependencies

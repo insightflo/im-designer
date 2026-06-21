@@ -1,130 +1,86 @@
-# 요청 분류 및 출력 (Request Classification & Output)
+# Request Classification & Output
 
-SKILL.md의 Step 1에서 분류한 요청 유형별 번역 구조와, Step 5 출력 모드의 작성 요령을 담는다.
+Per-type translation structure (for Step 1 classification in SKILL.md) and writing guidance for each output mode (Step 5). Output language is the user's language (Korean by default); English here is for token efficiency.
 
-## 목차
+## Contents
 - A. UX Feedback
 - B. UI Component Edit
 - C. Visual Style Translation
 - D. Reference Interpretation
 - E. Accessibility / Usability Fix
-- 출력 모드 (Output Modes) 작성 요령
+- Output Modes — writing guidance
 
 ---
 
-## A. UX Feedback (UX 피드백)
-화면 전체, 사용자 흐름, 정보 구조, 전환 목표, 사용성 문제에 대한 피드백.
+## A. UX Feedback
+Feedback about the whole screen, user flow, information architecture, conversion goal, or usability.
 
-**발화 예:**
-- "전체적으로 복잡해 보여."
-- "첫 화면에서 뭘 해야 할지 모르겠어."
-- "가입 버튼이 약해 보여."
-- "대시보드가 한눈에 안 들어와."
-- "신뢰감이 없어."
+**Example phrases:** "전체적으로 복잡해 보여" (looks cluttered), "첫 화면에서 뭘 해야 할지 모르겠어" (don't know what to do on the first screen), "가입 버튼이 약해 보여" (sign-up button looks weak), "대시보드가 한눈에 안 들어와" (dashboard doesn't read at a glance), "신뢰감이 없어" (feels untrustworthy).
 
-**번역 구조:**
-1. 상황 — 어떤 화면/흐름에서
-2. 사용자 문제 — 사용자가 겪는 어려움
-3. 관찰 가능한 증거 — 화면에서 볼 수 있는 근거
-4. 원하는 결과 — 개선 후 사용자가 할 수 있게 되는 것
-5. 우선순위 — Blocker / Suggestion / Question
-6. 최종 피드백 문장
+**Translation structure:** situation / user problem / observable evidence / desired outcome / priority / final feedback sentence.
 
 ---
 
-## B. UI Component Edit (컴포넌트 수정)
-특정 컴포넌트, 상태, 속성, 범위를 수정하는 요청.
+## B. UI Component Edit
+Modify a specific component, state, property, or scope.
 
-**발화 예:**
-- "활성화된 채팅 색이 바뀌었으면 좋겠어."
-- "버튼이 더 눌러보고 싶게 보여야 해."
-- "카드가 너무 밋밋해."
-- "선택된 메뉴가 잘 안 보여."
-- "입력창이 비활성화된 건지 모르겠어."
+**Example phrases:** "활성화된 채팅 색이 바뀌었으면 좋겠어", "버튼이 더 눌러보고 싶게 보여야 해", "카드가 너무 밋밋해", "선택된 메뉴가 잘 안 보여", "입력창이 비활성화된 건지 모르겠어".
 
-**번역 구조:**
-1. 대상 컴포넌트
-2. 상태값
-3. 수정 속성
-4. 적용 범위
-5. 유지할 것
-6. 접근성 고려
-7. 최종 수정 요청문
+**Translation structure:** target component / state / property to modify / scope / keep unchanged / accessibility / final edit request.
 
 ---
 
-## C. Visual Style Translation (시각 스타일 번역)
-감각적 표현을 시각 디자인 언어로 바꾸는 요청.
+## C. Visual Style Translation
+Convert sensory expressions into visual-design language.
 
-**발화 예:** "깔끔하게", "고급스럽게", "세련되게", "덜 촌스럽게", "좀 더 부드럽게", "강조되게", "차분하게"
+**Example phrases:** "깔끔하게", "고급스럽게", "세련되게", "덜 촌스럽게", "좀 더 부드럽게", "강조되게", "차분하게".
 
-**번역 구조:** 색상 / 대비 / 여백 / 타이포그래피 / 모서리 둥글기 / 그림자 / 정보 밀도 / 시각적 위계 / 브랜드 톤
+**Translation structure:** color / contrast / spacing / typography / corner radius / shadow / information density / visual hierarchy / brand tone.
 
-> 각 감각어의 구체적 전개(가능한 의미 + 번역 예)는 `dictionaries.md`의 **Design Language Dictionary** 섹션에서 본다.
-
----
-
-## D. Reference Interpretation (레퍼런스 해석)
-특정 브랜드·앱·서비스·웹사이트를 참고하라는 요청. **브랜드를 복제하지 않는다.**
-
-**발화 예:** "애플처럼", "토스처럼", "노션처럼", "리니어처럼", "에어비앤비처럼", "stripe 느낌으로", "vercel 스타일로"
-
-**번역 구조:**
-1. 사용자가 말한 레퍼런스
-2. 만들려는 화면 유형
-3. 참고할 수 있는 디자인 요소
-4. 그대로 가져오면 안 되는 요소
-5. 현재 제품에 맞게 변환할 방향
-6. 최종 요청문
-
-> 분해 절차(5단계)와 Apple 대시보드 완성 예시는 `rules.md`의 **Reference Interpretation Rules**에서 본다.
+> Per-word expansion (possible meanings + translation example) is in `dictionaries.md` · **Design Language Dictionary**.
 
 ---
 
-## E. Accessibility / Usability Fix (접근성·사용성 보정)
-상태, 의미, 행동 가능성, 오류, 대비, 포커스, 라벨 등이 불명확한 문제.
+## D. Reference Interpretation
+The user wants to reference a specific brand/app/service/website. **Do not clone the brand.**
 
-**발화 예:** "잘 안 보여.", "선택된 건지 모르겠어.", "눌러지는 건지 모르겠어.", "에러가 뭔지 모르겠어.", "비활성화된 건지 헷갈려."
+**Example phrases:** "애플처럼", "토스처럼", "노션처럼", "리니어처럼", "에어비앤비처럼", "stripe 느낌으로", "vercel 스타일로".
 
-**점검 항목:**
-- 색상 대비
-- 색상에만 의존하는 상태 표현 여부
-- focus state / hover state / selected state / disabled state
-- 오류 메시지의 구체성
-- 라벨 명확성
-- 키보드 접근성
-- 스크린리더 상태 전달 가능성
+**Translation structure:** the reference the user named / the screen type being built / elements worth borrowing / elements to exclude / conversion direction for the current product / final request.
 
-> 보정 권장사항(색상 외 표현 수단, focus ring 유지, disabled 표현, error 메시지 등)은 `rules.md`의 **Accessibility Rules**에서 본다.
+> The decomposition procedure and Apple-dashboard example are in `rules.md` · **Reference Interpretation Rules**.
 
 ---
 
-## 출력 모드 (Output Modes) 작성 요령
-SKILL.md의 표준 18항목 형식이 기본이며, 14~17번이 각 출력 모드에 대응한다. 목적에 따라 강조점을 바꾼다.
+## E. Accessibility / Usability Fix
+State, meaning, actionability, error, contrast, focus, or label is unclear.
 
-### 1. 디자이너용 문장
-협업적이고 자연스러운 표현으로 쓴다. **명령보다 문제와 목표를 중심**으로 말한다. "해 주세요", "방향이 좋겠습니다" 같은 톤. 디자이너가 맥락을 이해한 채 판단할 수 있도록 근거를 함께 준다.
+**Example phrases:** "잘 안 보여", "선택된 건지 모르겠어", "눌러지는 건지 모르겠어", "에러가 뭔지 모르겠어", "비활성화된 건지 헷갈려".
 
-### 2. AI 디자인 도구용 명령문
-구체적이고 실행 가능한 **명령형**으로 쓴다. 컴포넌트, 상태, 속성, 적용 범위, 유지 조건을 명확히 포함한다. 감상어("예쁘게") 없이, 속성 중심("apply a subtle selected background to the entire row")으로. 영어로 쓰는 것이 AI 도구 호환성에 유리한 경우가 많다.
+**Checklist:** color contrast / color-only state reliance / focus / hover / selected / disabled / error-message specificity / label clarity / keyboard accessibility / screen-reader state conveyance.
 
-### 3. Figma / Penpot 코멘트용
-짧고 위치 기반으로 쓴다. **"문제 → 근거 → 원하는 결과"** 순서로 작성한다. 한두 문장. 코멘트는 특정 요소에 달리므로 배경 설명보다 행동 중심으로.
+> Correction recommendations in `rules.md` · **Accessibility Rules**.
 
-### 4. 개발자용 구현 힌트
-가능하면 CSS 속성, 디자인 토큰, 상태 클래스, aria 속성 등을 포함한다. 단, **실제 코드가 확정되지 않은 경우 "예시"로 표시**하고 확정값처럼 말하지 않는다.
+---
 
-예시:
-- 상태 클래스: `.chat-list-item.is-selected`
-- 토큰: `surface.base`, `surface.raised`, `accent.primary`
-- aria: `aria-selected="true"`, `aria-disabled="true"`
-- CSS: `:focus-visible`, `:hover`, `:active` 유지
+## Output Modes — writing guidance
+The 18-section standard format is the default; sections 14–17 map to modes 1–4. Shift emphasis by purpose.
 
-### 5. 체감용 시각화 (렌더링)
-비전문가가 텍스트 스펙으로 판단하지 못할 때, 옵션이나 결과를 **실제 HTML로 렌더링**해 눈으로 비교·선택하게 한다. 두 패턴:
-- **옵션 비교** — 모호한 요청의 2~3 해석을 나란히 그려 "눈으로 고르게" 범위를 좁힌다.
-- **before/after** — 고른 방향을 적용한 모습을 보여 결과를 확인시킨다.
+### 1. Designer sentence
+Collaborative, natural phrasing. **Problem-and-goal centered, not imperative.** "해 주세요" / "방향이 좋겠습니다" tone. Give the reasoning so the designer can judge with context.
 
-원칙: 옵션은 최대 3개, 옵션 간 한 속성만 변경, 각 옵션에 접근성(색상 의존도) 메모 필수, **모든 색은 토큰 기반**, 추천 표시. 상세와 재사용 HTML 골격은 `visualization.md`.
+### 2. AI design-tool command
+Concrete, actionable **imperative**. Component, state, property, scope, keep-conditions explicit. No taste-words — property-centric ("apply a subtle selected background to the entire row"). English often works better for AI-tool compatibility.
 
-> 여러 모드를 동시에 내는 것이 기본값(모드 1~4). 사용자가 "보여줘/체감/옵션 비교"를 원하거나 비전문가라면 **모드 5를 우선**하고, 선택된 방향을 모드 1~4 문장으로 확정해 디자이너/개발자에게 전달한다.
+### 3. Figma / Penpot comment
+Short, location-based. Order: **"problem → evidence → desired result."** One or two sentences. Comments attach to a specific element, so be action-centered, not background-explanatory.
+
+### 4. Developer implementation hints
+CSS properties, design tokens, state classes, aria attributes where possible. **Mark "예시" (example) if code isn't finalized** — never present unfinalized code as definitive.
+
+Examples: state class `.chat-list-item.is-selected`; tokens `surface.base` / `accent.primary`; aria `aria-selected="true"`; keep `:focus-visible` / `:hover` / `:active`.
+
+### 5. Visualization for feel (render)
+When a non-designer can't judge from text, **render options or the result as actual HTML** so they compare and pick by seeing. Two patterns: option-comparison (narrow ambiguity) and before/after (confirm result). Full guidance + reusable HTML skeleton in `visualization.md`.
+
+> Default is to emit multiple modes. If the user wants only one mode, emit that and skip the rest.

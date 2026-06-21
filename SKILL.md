@@ -1,94 +1,92 @@
 ---
 name: im-designer
-description: "사용자의 모호한 디자인 요청·피드백·수정 지시·레퍼런스 표현을 디자이너·개발자·AI 디자인 도구가 바로 실행할 수 있는 구체적 UI/UX 언어로 번역한다. '예쁘게', '깔끔하게', '고급스럽게', '세련되게', '눈에 띄게', '부드럽게', '애플처럼', '토스처럼', '노션처럼', '리니어처럼', '이 색 말고 다른 색', '여기 좀 더 눈에 띄게', '활성화된 채팅 색이 바뀌었으면 좋겠어' 같은 감각어·직관어를 컴포넌트·상태·속성·접근성 고려가 포함된 실행 가능한 요청문으로 분해한다. 사용자가 화면·버튼·카드·사이드바·입력창·탭·모달·대시보드·랜딩페이지·앱 화면·관리자 페이지·온보딩·결제 화면에 대해 피드백을 주거나 수정을 요청하거나 특정 브랜드 느낌을 원할 때, 그리고 '잘 안 보여', '선택된 건지 모르겠어', '눌러지는 건지 모르겠어', '에러가 뭔지 모르겠어' 같은 접근성·사용성 불만을 말할 때 반드시 이 스킬을 사용한다. 비전문가의 모호한 표현을 번역하는 상황에 적용하며, 이미 명확한 디자인 용어를 쓰는 전문가의 직접 지시에는 불필요하다."
+description: "Translates a non-designer's vague design language into executable UI/UX requests for designers, developers, and AI design tools. Handles Korean taste-words like '예쁘게'(pretty), '깔끔하게'(clean), '고급스럽게'(premium), '세련되게'(refined), '눈에 띄게'(stand out), '부드럽게'(soft), '애플처럼'/'토스처럼'/'노션처럼'(like Apple/Toss/Notion), '이 색 말고 다른 색'(a different color), '활성화된 채팅 색'(active chat color), and usability complaints like '잘 안 보여'(hard to see), '선택된 건지 모르겠어'(can't tell it's selected), '눌러지는 건지 모르겠어'(can't tell it's clickable). Decomposes these into component + state + property + accessibility terms, and renders HTML options so the user can SEE and pick. Use this whenever the user gives vague, taste-based, or brand-reference design feedback on any screen, button, card, sidebar, input, tab, modal, dashboard, landing page, app screen, admin page, onboarding, or checkout — even if they never use the word 'design'. Skip when an expert already speaks in precise design terminology."
 trigger: ["예쁘게", "깔끔하게", "고급스럽게", "세련되게", "눈에 띄게", "부드럽게", "덜 복잡하게", "애플처럼", "토스처럼", "노션처럼", "리니어처럼", "에어비앤비처럼", "stripe 느낌", "vercel 스타일", "이 색 말고", "색 바꿔", "활성화된 채팅", "선택된 메뉴", "잘 안 보여", "눌러지는 건지", "비활성화된 건지", "버튼이 약해", "복잡해 보여", "한눈에 안 들어와", "디자인 피드백", "UI 수정", "UX 피드백", "보여줘", "체감", "옵션 비교", "어떻게 달라지는지", "눈으로"]
-version: 1.1.0
+version: 1.2.0
 updated: 2026-06-21
 ---
 
-# im-designer — 디자인 언어 번역기 (Design Language Translator)
+# im-designer — Design Language Translator
 
-> **언제 쓰는가:** 사용자가 디자인 용어 없이 감각어·직관어로 화면·컴포넌트·스타일·레퍼런스에 대해 말할 때. 그 표현을 그대로 넘기지 않고 실행 가능한 UI/UX 언어로 번역한다.
+> **LANGUAGE NOTE — READ THIS FIRST:** These instructions are written in English to save tokens. **Always produce your output in the user's language (Korean by default).** English here is only for efficiency; the deliverable must be in Korean (or whatever language the user is speaking).
 
-## 이 스킬이 하는 일
-디자인 경험이 없는 사용자가 감각어·직관어로 표현한 디자인 요청, 피드백, 수정 지시, 레퍼런스 표현을 디자이너·개발자·AI 디자인 도구가 바로 실행할 수 있는 구체적 UI/UX 언어로 번역한다.
+## What this skill does
+A user with no design background describes design wants in sensory, intuitive language — "예쁘게" (pretty), "깔끔하게" (clean), "애플처럼" (like Apple), "이 색 말고 다른 색" (not this color, another one), "활성화된 채팅 색이 바뀌었으면 좋겠어" (wish the active chat color changed). This skill does **not** pass those phrases through. It decomposes the intent into an executable request that a designer, developer, or AI design tool can act on immediately.
 
-사용자는 "예쁘게", "깔끔하게", "애플처럼", "이 색 말고 다른 색", "여기 좀 더 눈에 띄게", "활성화된 채팅 색이 바뀌었으면 좋겠어"처럼 말한다. 이 스킬은 그 표현을 그대로 전달하지 않고, 반드시 의도를 분해한다.
+## Core principle
+Translate taste-language into design-execution language. Never pass impression-words through.
 
-## 핵심 원칙
-사용자의 취향어를 디자인 실행 언어로 번역한다. 감상어를 그대로 넘기지 않는다.
+- **Bad request:** "좀 더 예쁘게 해주세요." (Make it prettier.)
+- **Good request:** "첫 화면에서 핵심 CTA가 묻혀 사용자가 다음 행동을 빠르게 파악하기 어렵습니다. CTA의 시각적 위계를 높이고, 주변 정보량을 줄여 사용자가 가입 버튼을 먼저 인식하도록 조정해 주세요." (The primary CTA is buried on the first screen, making the next action hard to grasp. Raise the CTA's visual hierarchy and reduce surrounding clutter so the sign-up button reads first.)
 
-- **나쁜 요청:** "좀 더 예쁘게 해주세요."
-- **좋은 요청:** "첫 화면에서 핵심 CTA가 묻혀 사용자가 다음 행동을 빠르게 파악하기 어렵습니다. CTA의 시각적 위계를 높이고, 주변 정보량을 줄여 사용자가 가입 버튼을 먼저 인식하도록 조정해 주세요."
+Making that conversion is the sole purpose of this skill.
 
-이 차이를 만드는 것이 이 스킬의 유일한 목적이다.
-
-## 번역 공식 (최종 규칙)
-항상 사용자의 말을 아래 흐름으로 바꾼다. 각 단계는 비워져 있으면 안 된다 — 정보가 부족하면 "확인 필요"로 표시하되 흐름은 유지한다.
+## Translation formula (final rule)
+Always convert the user's words through this chain. No step may be left empty — if information is missing, mark it "확인 필요" (needs confirmation) but keep the chain intact.
 
 ```
-모호한 감상
-  → 사용자 문제
-  → 관찰 가능한 근거
-  → 원하는 결과
-  → 대상 컴포넌트
-  → 상태값
-  → 수정 속성
-  → 적용 범위
-  → 유지 조건
-  → 접근성 보정
-  → 실행 가능한 요청문
+vague impression
+  → user problem
+  → observable evidence
+  → desired outcome
+  → target component
+  → state
+  → property to modify
+  → scope
+  → what to preserve
+  → accessibility correction
+  → executable request
 ```
 
-## 행동 원칙 (Important Behavior)
-사용자의 요청이 모호하더라도 **바로 거절하거나 질문만 하지 않는다.** 먼저 가능한 해석을 구조화하고 가장 가능성 높은 해석을 추천한다. 질문보다 우선해야 하는 것:
+## Behavior principles (Important Behavior)
+Even when the request is vague, **do not refuse or only ask questions.** First structure the possible interpretations and recommend the most likely one. Priorities, in order:
 
-1. 사용자의 원문을 보존한다.
-2. 가능한 의미를 분해한다.
-3. 가장 실무적으로 적절한 수정 방향을 제안한다.
-4. 불확실한 부분은 "확인 필요"로 표시한다.
-5. 그래도 디자이너나 AI 도구에 보낼 수 있는 초안 문장을 제공한다.
+1. Preserve the user's original words verbatim.
+2. Decompose possible meanings.
+3. Propose the most practically sound direction.
+4. Mark uncertain parts as "확인 필요".
+5. Still provide a draft sentence usable to hand to a designer/AI tool.
 
-실행에 꼭 필요한 정보가 없을 때만, **최대 3개까지 짧게** 질문한다. 그 전에 번역 초안을 먼저 낸다.
+Only when information essential to execution is missing, ask **at most 3 short questions** — and only after producing a draft first.
 
-**비전문가는 텍스트로 판단하지 못한다.** 사용자가 "보여줘 / 체감 / 어떻게 달라지는지 / 옵션 비교"를 원하거나, 디자인 용어 없이 막연히 말하는 경우에는 텍스트 스펙만 주지 말고 **모드 5(시각화)로 실제 모습을 렌더링**해 눈으로 고르게 하라. 이 스킬의 1차 대상은 디자인 경험이 없는 사용자다 — 그들은 읽는 것보다 보는 것으로 결정한다.
+**Non-designers cannot judge from text.** When the user asks to "보여줘 / 체감 / 어떻게 달라지는지 / 옵션 비교" (show me / feel it / how it changes / compare options), or speaks vaguely without design vocabulary, do not give only a text spec — **render the actual result (mode 5 visualization)** so they can choose by seeing. This skill's primary audience is users without design experience; they decide by seeing, not reading.
 
-## 처리 절차
+## Procedure
 
-### Step 1 — 요청 분류
-사용자 입력을 아래 유형 중 하나 이상으로 분류한다. 각 유형별 번역 구조의 상세(발화 예 + 산출 항목)는 `references/classification-and-output.md`를 읽는다.
+### Step 1 — Classify the request
+Classify the input into one or more of these types. For each type's translation structure + example phrases, read `references/classification-and-output.md`.
 
-| 유형 | 의미 | 핵심 산출 항목 |
-|------|------|----------------|
-| **A. UX 피드백** | 화면 전체·흐름·정보구조·전환·사용성 | 상황 / 사용자 문제 / 관찰 가능한 근거 / 원하는 결과 / 우선순위 / 최종 피드백 문장 |
-| **B. 컴포넌트 수정** | 특정 컴포넌트·상태·속성·범위 수정 | 대상 컴포넌트 / 상태값 / 수정 속성 / 적용 범위 / 유지할 것 / 접근성 고려 / 최종 수정 요청문 |
-| **C. 시각 스타일 번역** | 감각어(깔끔/고급/세련/눈에 띄게/부드럽게) | 색상 / 대비 / 여백 / 타이포그래피 / 모서리 둥글기 / 그림자 / 정보 밀도 / 시각적 위계 / 브랜드 톤 |
-| **D. 레퍼런스 해석** | "X처럼" 브랜드 참고 | 레퍼런스 / 화면 유형 / 참고 요소 / 제외 요소 / 변환 방향 / 최종 요청문 |
-| **E. 접근성·사용성 보정** | 잘 안 보임 / 구분 안 됨 / 상태 헷갈림 / 오류 불친절 | 대비 / 색상 의존 / focus / hover / selected / disabled / 오류 메시지 / 라벨 / 키보드 / 스크린리더 점검 |
+| Type | Meaning | Key outputs |
+|------|---------|-------------|
+| **A. UX feedback** | whole screen / flow / IA / conversion / usability | situation / user problem / observable evidence / desired outcome / priority / final feedback sentence |
+| **B. Component edit** | modify a specific component / state / property / scope | target component / state / property / scope / keep / accessibility / final edit request |
+| **C. Visual style translation** | taste-words (clean/premium/refined/stand-out/soft) | color / contrast / spacing / typography / radius / shadow / density / hierarchy / brand tone |
+| **D. Reference interpretation** | "like X" brand reference | reference / screen type / borrow / exclude / conversion direction / final request |
+| **E. Accessibility/usability fix** | can't see / can't distinguish / state confusion / unhelpful error | contrast / color-reliance / focus / hover / selected / disabled / error msg / label / keyboard / screen-reader |
 
-> 여러 유형이 겹치면(예: "활성화된 채팅 색 변경" = B + E) 둘 다 적용한다.
+> Types can overlap (e.g., "active chat color" = B + E). Apply both.
 
-### Step 2 — 감각어 번역
-"예쁘게 / 깔끔하게 / 고급스럽게 / 세련되게 / 눈에 띄게 / 부드럽게 / 덜 복잡하게" 등의 표현을 구체적 디자인 속성으로 풀어낸다. 각 단어별 "가능한 의미"와 "번역 예" 전체는 `references/dictionaries.md`의 **Design Language Dictionary** 섹션을 읽는다.
+### Step 2 — Translate taste-words
+Expand "예쁘게 / 깔끔하게 / 고급스럽게 / 세련되게 / 눈에 띄게 / 부드럽게 / 덜 복잡하게" into concrete design properties. For each word's possible meanings + translation example, read the **Design Language Dictionary** section of `references/dictionaries.md`.
 
-### Step 3 — 어휘 매핑
-사용자의 일상 표현을 정식 명칭으로 바꾼다.
+### Step 3 — Map vocabulary
+Convert everyday phrasing to formal names.
 
-- **컴포넌트:** "채팅 목록 하나" → `ChatListItem`, "왼쪽 메뉴" → `Sidebar`, "뱃지" → `Badge` ... 전체 매핑은 `references/dictionaries.md` · **Component Vocabulary**
-- **상태:** "활성화된 / 현재 보고 있는 / 선택된 / 열려 있는" → 보통 `selected` 또는 `active`. 메뉴·리스트·채팅방에서는 `selected`가 더 적절할 가능성이 높다. 전체는 `references/dictionaries.md` · **State Vocabulary**
-- **수정 속성:** Color / Layout / Spacing / Typography / Shape / Elevation / Interaction / Information Architecture 중 무엇인지 구분. 전체는 `references/dictionaries.md` · **Editable Properties**
+- **Components:** "채팅 목록 하나" → `ChatListItem`, "왼쪽 메뉴" → `Sidebar`, "뱃지" → `Badge` ... full mapping in `references/dictionaries.md` · **Component Vocabulary**
+- **State:** "활성화된 / 현재 보고 있는 / 선택된 / 열려 있는" → usually `selected` or `active`. In menus/lists/chat rooms, `selected` is more likely correct. Full list in `references/dictionaries.md` · **State Vocabulary**
+- **Properties:** distinguish Color / Layout / Spacing / Typography / Shape / Elevation / Interaction / Information Architecture. Full list in `references/dictionaries.md` · **Editable Properties**
 
-### Step 4 — 규칙 적용
-- **레퍼런스("X처럼"):** 브랜드를 복제하지 않고 요소를 분해한다. 절차와 Apple 대시보드 예시는 `references/rules.md` · **Reference Interpretation Rules**
-- **색상 (토큰 우선 — 기본값):** 모든 색은 **정의된 토큰(Primary / Secondary / Surface level / Text / Border)에서만** 선택한다. 임의 색상코드(#xxxxxx)는 금지. 사용자가 색상코드를 몰라도 멈추지 않고 토큰 이름으로 표현한다. **통일성이 최우선** — 같은 Primary 토큰을 selected·버튼·뱃지에 재사용하고, 강조 단계는 tint(Primary를 섞은 비율)로 파생시킨다. 상세와 기본 토큰 세트 예시는 `references/rules.md` · **Color Request Rules**
-- **우선순위:** Blocker / Suggestion / Question 부여. `references/rules.md` · **Priority Rules**
-- **접근성:** 기본 점검 항목. 색상만으로 상태 구분 금지, focus ring 유지 등. `references/rules.md` · **Accessibility Rules**
+### Step 4 — Apply rules
+- **Reference ("like X"):** do not clone the brand; decompose its elements. Procedure + Apple-dashboard example in `references/rules.md` · **Reference Interpretation Rules**
+- **Color (token-first — default):** every color comes from a **defined token (Primary / Secondary / Surface level / Text / Border) only**. Arbitrary hex is forbidden. If the user doesn't know a color code, don't stop — express it as a token name. **Consistency is paramount** — reuse one Primary token for selected/button/badge; derive emphasis via tint (Primary blended at a ratio). Details + default token set in `references/rules.md` · **Color Request Rules**
+- **Priority:** assign Blocker / Suggestion / Question. `references/rules.md` · **Priority Rules**
+- **Accessibility:** default checklist. No color-only state distinction, keep focus ring, etc. `references/rules.md` · **Accessibility Rules**
 
-### Step 5 — 출력
-아래 **표준 출력 형식**을 따른다. (형식이 이 스킬의 산출물 자체다.)
+### Step 5 — Output
+Follow the **Standard Output Format** below. (The format IS the deliverable.)
 
-## 표준 출력 형식 (Standard Output Format)
-기본 출력은 아래 18개 항목을 따른다. 상황에 맞게 채운다. 해당 없는 항목은 "해당 없음"으로 표시하고 빈 칸으로 두지 않는다.
+## Standard Output Format
+Default output follows these 18 sections. Fill each per the situation. Mark inapplicable items "해당 없음" (n/a) — never leave blanks. **Produce the content in the user's language (Korean by default).**
 
 ```
 [디자인 언어 번역]
@@ -97,10 +95,10 @@ updated: 2026-06-21
    - UX 피드백 / 컴포넌트 수정 / 스타일 조정 / 레퍼런스 해석 / 접근성 점검
 
 2. 사용자 원문
-   - (사용자의 말을 그대로)
+   - (the user's words, verbatim)
 
 3. 의도 해석
-   - (한 문장으로 의도 요약)
+   - (one-sentence intent summary)
 
 4. 대상
    - 화면:
@@ -150,10 +148,10 @@ updated: 2026-06-21
     -
 ```
 
-완성된 3개 예시(채팅 selected 색 / 애플풍 대시보드 / 버튼 affordance)는 `references/examples.md`에서 본다.
+For 3 fully worked examples (chat selected color / Apple-style dashboard / button affordance), see `references/examples.md`.
 
-## 축약 출력 (Short Output Format)
-사용자가 "짧게 / 바로 보낼 문장만 / 코멘트만"이라고 요청하면 아래로 줄인다.
+## Short Output Format
+When the user says "짧게 / 바로 보낼 문장만 / 코멘트만" (short / just the sendable sentence / comment only), reduce to:
 
 ```
 [바로 전달할 문장]
@@ -166,57 +164,57 @@ updated: 2026-06-21
 -
 ```
 
-## 출력 모드 (Output Modes)
-목적에 따라 강조점을 바꾼다. 상세 포맷과 작성 요령은 `references/classification-and-output.md`의 "출력 모드" 섹션.
+## Output Modes
+Shift emphasis by purpose. Full format + writing guidance in `references/classification-and-output.md` · "Output Modes".
 
-1. **디자이너용 문장** — 협업적이고 자연스럽게. 명령보다 문제와 목표를 중심으로.
-2. **AI 디자인 도구용 명령문** — 구체적이고 실행 가능한 명령형. 컴포넌트·상태·속성·적용 범위·유지 조건을 명확히 포함.
-3. **Figma / Penpot 코멘트용** — 짧고 위치 기반. "문제 → 근거 → 원하는 결과" 순서.
-4. **개발자용 구현 힌트** — 가능하면 CSS 속성·디자인 토큰·상태 클래스·aria 속성 포함. 실제 코드가 확정되지 않았으면 "예시"로 표시.
-5. **체감용 시각화 (렌더링)** — 비전문가가 텍스트 스펙만으로는 판단할 수 없을 때, 옵션/결과를 **실제 HTML로 렌더링**해 눈으로 비교·선택하게 한다. 모호성을 시각으로 좁히거나(2~3 옵션 비교), 최종 결과를 before/after로 보여줄 때 쓴다. 항상 토큰 기반이어야 하고, 색상 의존도 등 접근성 메모를 함께 표시한다. 작성 요령은 `references/visualization.md`.
+1. **Designer sentence** — collaborative and natural. Problem-and-goal centered, not imperative.
+2. **AI design-tool command** — concrete, actionable imperative. Component, state, property, scope, keep-conditions explicit.
+3. **Figma / Penpot comment** — short and location-based. "problem → evidence → desired result".
+4. **Developer implementation hints** — CSS properties, design tokens, state classes, aria attributes where possible. Mark "예시" (example) if code isn't finalized.
+5. **Visualization for feel (render)** — when a non-designer can't judge from a text spec, **render options or the result as actual HTML** so they compare and pick by seeing. Always token-based; always show accessibility (color-reliance) notes. Guidance in `references/visualization.md`.
 
-> 기본값은 여러 모드를 동시에 내는 것(표준 형식 14~17번이 모드 1~4에 대응). 사용자가 "보여줘 / 체감 / 어떻게 달라지는지 / 옵션 비교"를 원하거나 비전문가라면 **모드 5(시각화)**를 우선 제공하라 — 이 사용자는 읽는 것보다 보는 것으로 판단한다.
+> Default is to emit multiple modes at once (sections 14–17 map to modes 1–4). When the user wants "보여줘 / 체감 / 옵션 비교" or is a non-designer, **prioritize mode 5 (visualization)** — this user decides by seeing.
 
-## 모호한 요청 처리 (Handling Ambiguity)
-가능한 해석을 2~4개로 나누어 제시하고, 가장 가능성 높은 것을 추천한 뒤 최종 요청문을 작성한다.
+## Handling ambiguity
+Split possible interpretations into 2–4 options, recommend the most likely, then write the final request.
 
-**텍스트만으로는 사용자가 판단하기 어려운 경우(특히 비전문가)에는 해석을 시각화한다.** 각 해석을 실제 모습(HTML 모업/비교 패널)으로 렌더링해 나란히 보여주면, 사용자가 "눈으로 고르며" 범위를 하나로 좁힐 수 있다. 이게 "보고 고르는 범위 좁히기 절차"다. 렌더링 방법은 `references/visualization.md`.
+**When text alone is too hard for the user to judge (especially non-designers), visualize the interpretations** — render each as an actual HTML mockup side by side so the user narrows to one by seeing. That is the "see-and-pick scope-narrowing" procedure. See `references/visualization.md`.
 
-**예시** — 사용자: "활성화된 채팅 색이 바뀌었으면 좋겠어."
-> 이 요청은 아래 세 가지 의미일 수 있습니다.
-> 1. 선택된 row 전체의 background-color 변경 **(추천)**
-> 2. 채팅 제목의 text-color 변경
-> 3. 왼쪽 indicator 또는 border 추가
+**Example** — user: "활성화된 채팅 색이 바뀌었으면 좋겠어." (active chat color)
+> This request could mean three things.
+> 1. Change the selected row's full background-color **(recommended)**
+> 2. Change the chat title's text-color
+> 3. Add a left indicator or border
 >
-> 추천은 1번입니다. 현재 열려 있는 채팅방을 명확히 구분하려는 목적이라면 글자색보다 row 전체 background-color 변경이 더 안정적입니다. 색상만으로 구분하지 않도록 left accent bar도 함께 쓰는 것이 좋습니다.
+> Recommendation: #1. If the goal is to distinguish the open chat clearly, a full-row background-color is more robust than a text color. Don't rely on color alone — pair it with a left accent bar.
 
-> 시각화 모드에서는 위 세 가지를 각각 HTML로 그려 나란히 보여주고, 사용자가 하나를 고르면 그것을 최종 요청으로 확정한다.
+In visualization mode, render those three as HTML side by side; the user picks one, which becomes the final request.
 
-그다음 최종 요청문을 작성한다.
+Then write the final request.
 
-## 하지 말 것 (Do Not)
-이 항목들은 품질의 하한선이다. 이유: 감상어·복제·임의 색상코드는 받는 쪽(디자이너·개발자·AI 도구)이 실행할 수 없게 만든다.
+## Do NOT
+These are the quality floor. Reason: impression-words, clones, and arbitrary hex make the output un-actionable for the receiver.
 
-- "예쁘게 해주세요" 같은 표현을 최종 요청문에 그대로 넣지 않는다.
-- 브랜드명을 그대로 복제하라고 지시하지 않는다.
-- 사용자가 색상코드를 모른다고 요청을 멈추지 않는다.
-- 색상만으로 상태를 구분하라고 제안하지 않는다.
-- focus ring을 제거하라고 제안하지 않는다.
-- 디자인 시스템이 있는 상황에서 임의 색상코드를 확정값처럼 제안하지 않는다.
-- 모든 문제를 단순히 "색상 변경"으로 해결하지 않는다.
-- 디자이너에게 방어적으로 들리는 표현을 쓰지 않는다.
-- "별로예요", "느낌이 안 와요" 같은 감상어만 남기지 않는다.
+- Do not put "예쁘게 해주세요"-style impression-words in the final request.
+- Do not instruct to clone a brand verbatim.
+- Do not stop the request because the user lacks a color code.
+- Do not suggest distinguishing state by color alone.
+- Do not suggest removing the focus ring.
+- Do not propose arbitrary hex as a definitive value when a design system exists.
+- Do not solve every problem as "change the color".
+- Do not use phrasing that sounds defensive toward the designer.
+- Do not leave only impression-words like "별로예요" / "느낌이 안 와요".
 
-## 톤 (Tone)
-실무적으로 명확하고 협업적인 말투. 디자이너를 탓하지 않고, 사용자의 모호한 표현을 비난하지 않는다. 단, 최종 문장은 바로 복사해서 전달할 수 있을 만큼 구체적으로 쓴다.
+## Tone
+Practical, clear, collaborative. Don't blame the designer; don't disparage the user's vague phrasing. But make the final sentence specific enough to copy-paste and send.
 
-## 레퍼런스 (언제 읽을지)
-단순한 번역은 이 SKILL.md만으로 충분하다. 아래 상세가 필요할 때만 해당 레퍼런스를 읽는다.
+## References (when to read)
+For simple translations, this SKILL.md alone is enough. Read the relevant reference only when you need the detail.
 
-| 파일 | 언제 읽나 |
+| File | Read when |
 |------|-----------|
-| `references/classification-and-output.md` | 유형별(A~E) 번역 구조와 발화 예, 5가지 출력 모드 작성 요령이 필요할 때 |
-| `references/dictionaries.md` | 감각어 사전(예쁘게/깔끔하게/…), 컴포넌트·상태·속성 어휘 전체가 필요할 때 |
-| `references/rules.md` | 레퍼런스 해석 절차, 색상(토큰 우선) 요청 규칙, 우선순위 기준, 접근성 보정 권장이 필요할 때 |
-| `references/visualization.md` | 모드 5(체감용 시각화)로 옵션이나 결과를 HTML로 렌더링해야 할 때 |
-| `references/examples.md` | 완성된 3개 예시와 bad/good 쌍을 참고할 때 |
+| `references/classification-and-output.md` | you need each type's (A–E) translation structure + example phrases + the 5 output-mode writing guidance |
+| `references/dictionaries.md` | you need the taste-word dictionary, or the full component/state/property vocabularies |
+| `references/rules.md` | you need reference-interpretation procedure, color (token-first) rules, priority criteria, accessibility corrections |
+| `references/visualization.md` | you need to render options or results as HTML (mode 5) |
+| `references/examples.md` | you want to reference 3 worked examples + bad/good pairs |
