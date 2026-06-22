@@ -24,6 +24,20 @@ These extract complete design systems from real products into a format you can r
 4. Adapt to the **current brand** if one exists — e.g. if the product's identity is warm paper, keep the warm substrate and borrow only the reference's type hierarchy / whitespace, not its cool canvas. Brand-fit is a hard filter (a cool reference applied to a warm brand can read as a rebrand — flag it).
 5. Render the adapted tokens as a real HTML mockup (mode 5) with a token table, so the user sees both the direction and the baseline values.
 
+## Two-axis decomposition — visual style vs UX pattern
+Do not borrow a whole service. Split the reference on **two independent axes** — you may take visual style from product A and UX structure from product B:
+
+| Axis | What you borrow | Example |
+|---|---|---|
+| **Visual Style** | color, type, surface, whitespace, radius, icon style, mood | Cursor's warm-paper palette + Orange accent |
+| **UX Pattern** | navigation, IA, search, filter, list/table, detail, form, states | master-detail, sticky section nav, progressive disclosure |
+
+For each element you consider borrowing, split into **apply** (take this principle) vs **doNotApply** (this fits the reference but not our screen). "이 사이트는 색은 좋은데 타이포는 우리 제품엔 과하다" is the model — record both sides.
+
+**Render it, don't just list it.** In reference mode, render an apply/doNotApply comparison panel: left = "가져올 원칙(apply)" with the borrowed element applied, right = "버릴 것(doNotApply)" with why it doesn't fit this screen's purpose. This makes the decomposition visible and choosable, the same way option-compare makes a direction choosable.
+
+This prevents the two classic reference failures: (a) cloning a whole site's composition, (b) rejecting a good reference because one axis (e.g. its marketing hero) doesn't fit, while its visual style is exactly right.
+
 ## Honest limits
 - Extractors reflect a snapshot of a site; verify against the live site if a value looks off.
 - A brand's *feel* is more than its tokens — composition, motion, copy tone. Tokens get you 70%; the rest is the decompose/adapt step. Do not present token-lifting as a substitute for judgment.

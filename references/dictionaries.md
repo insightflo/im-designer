@@ -45,6 +45,30 @@ Translate sensory expressions as below. "Possible meanings" shows one word can p
 
 ---
 
+## Multi-dimensional token translation (for faithful rendering)
+
+The one-line "Translation example" above is a starting point, not the ceiling. When the word will drive a **render** (mode 5), expand it across these dimensions so the render is faithful, not a guess. One taste-word can map to several dimensions at once.
+
+| Dimension | What to decide | Example token/property |
+|---|---|---|
+| 정보 밀도 (density) | tight ↔ comfortable ↔ airy | spacing scale, card padding, line-height |
+| 타이포 (typography) | family, weight contrast, hierarchy strength | humanist sans, 800/400 contrast, strong hierarchy |
+| 색상 (color) | saturation, neutral vs accent count, palette direction | low-sat warm-neutral, 1 accent, avoid neon |
+| 레이아웃 (layout) | alignment rigor, grid vs asymmetric, predictability | consistent grid, predictable alignment |
+| 모서리·표면 (surface) | radius scale, flat / border / elevation, shadow weight | radius sm–md, flat-with-border, subtle shadow |
+| 모션 (motion) | motion level, duration, easing | minimal, standard easing, no bouncy |
+| 금지 (avoid) | what this word rules out | decorative gradients, heavy shadows, oversized hero |
+
+**추정 vs 확정 분리** — mark each dimension:
+- **확정 (confirmed)**: the user stated it, or it's unambiguous from the request.
+- **추정 (assumed)**: your inference from the word + screen context.
+
+Render the assumed ones as the *varying* axis across options (that's what the user is choosing), and keep confirmed ones fixed. Example: "차분하게" → 확정: low-sat color, minimal motion, restrained radius. 추정(vary in options): density (medium vs airy), typography hierarchy (medium vs strong). The user picks among the 추정 axes by seeing.
+
+This is the deeper form of the per-word translation — use it whenever a render is downstream.
+
+---
+
 ## Component Vocabulary
 Translate the user's everyday phrasing into likely formal component names.
 

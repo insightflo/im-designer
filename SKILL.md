@@ -2,7 +2,7 @@
 name: im-designer
 description: "Translates a non-designer's vague design language into executable UI/UX requests for designers, developers, and AI tools. Handles Korean taste-words ('예쁘게' pretty, '깔끔하게' clean, '고급스럽게' premium, '세련되게' refined, '눈에 띄게' stand out, '부드럽게' soft, '이 색 말고 다른 색'), brand refs ('애플처럼'/'토스처럼'/'노션처럼' like Apple/Toss/Notion), and usability complaints ('잘 안 보여' hard to see, '선택된 건지 모르겠어', '눌러지는 건지 모르겠어'). Decomposes into component + state + property + accessibility terms and renders HTML options so the user can SEE and pick. Use whenever the user gives vague, taste-based, or brand-reference design feedback on any screen, button, card, sidebar, input, modal, dashboard, landing page, or app screen — even without the word 'design'. Skip when the user already uses precise design terms (tokens like color.primary, states like selected/hover/focus-visible, aria, WCAG contrast, or a concrete CSS change); trigger only for impression-based or brand-comparative feedback."
 metadata:
-  version: 1.3.0
+  version: 1.4.0
   updated: 2026-06-22
 ---
 
@@ -15,6 +15,8 @@ A user with no design background describes design wants in sensory, intuitive la
 
 ## Core principle
 Translate taste-language into design-execution language. Never pass impression-words through.
+
+**Guiding thesis: 생성보다 판단, 말보다 선택.** A non-designer is bad at *defining* taste in words but good at *comparing and choosing*. So this skill does not force the user to describe a design — it surfaces concrete options to compare (mode 5 render), and the user's choice becomes the spec. Judgment over generation; choosing over describing.
 
 - **Bad request:** "좀 더 예쁘게 해주세요." (Make it prettier.)
 - **Good request:** "첫 화면에서 핵심 CTA가 묻혀 사용자가 다음 행동을 빠르게 파악하기 어렵습니다. CTA의 시각적 위계를 높이고, 주변 정보량을 줄여 사용자가 가입 버튼을 먼저 인식하도록 조정해 주세요." (The primary CTA is buried on the first screen, making the next action hard to grasp. Raise the CTA's visual hierarchy and reduce surrounding clutter so the sign-up button reads first.)
@@ -214,6 +216,13 @@ A render is not the end. For a non-designer it is the **conversation surface**. 
 - Do not stop at "pick one → write the final request". If the reaction reveals a new constraint, re-render with it applied (before/after) so the user confirms by seeing.
 - Procedure + the loop diagram in `references/visualization.md` · "The render → reaction → refine loop".
 
+## Before you render — quick gates
+Two checks before showing a mode-5 render:
+- **Anti-generic question** — for each decorative element: *"이 요소가 제품 목적 / 사용자 행동을 어떻게 돕는가?"* No purpose-tied answer → drop or justify. (The token-first color rule already blocks baseless gradients; this catches the rest — card overuse, hero-on-a-tool-screen, fake stats. Catalog in `references/anti-generic.md`.)
+- **Self-check** — render passes this skill's own rules: token-first, no color-only state, focus ring kept, WCAG AA contrast, clear hierarchy. If you can see it's wrong, fix before output.
+
+These are questions, not bans — gradients / cards / heroes are fine when justified by purpose.
+
 ## Do NOT
 These are the quality floor. Reason: impression-words, clones, and arbitrary hex make the output un-actionable for the receiver.
 
@@ -239,5 +248,6 @@ For simple translations, this SKILL.md alone is enough. Read the relevant refere
 | `references/dictionaries.md` | you need the taste-word dictionary, or the full component/state/property vocabularies |
 | `references/rules.md` | you need reference-interpretation procedure, color (token-first) rules, priority criteria, accessibility corrections |
 | `references/reference-sources.md` | a "like X" request names a real brand/product — pull objective design tokens (color/type/spacing) from structured libraries instead of guessing |
+| `references/anti-generic.md` | you are about to render (mode 5) — guard the render against generic AI-slop (baseless gradients, card overuse, oversized hero) |
 | `references/visualization.md` | you need to render options or results as HTML (mode 5) |
 | `references/examples.md` | you want to reference 3 worked examples + bad/good pairs |

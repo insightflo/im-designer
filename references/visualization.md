@@ -169,3 +169,5 @@ Copy and fill this skeleton. Tokens are defined once in `:root` → everything s
 - [ ] all colors are tokens (no arbitrary hex)
 - [ ] recommendation marked with reason
 - [ ] single HTML file, system font, minimal dependencies
+- [ ] **anti-generic gate** — every decorative element answers "제품 목적/사용자 행동을 어떻게 돕는가?"; no baseless gradient / card overuse / oversized hero / fake stats / glow (see `anti-generic.md`)
+- [ ] **self-check gate** — render passes this skill's own rules: token-first, no color-only state, focus ring kept, WCAG AA contrast, clear hierarchy. If you can see it's wrong, fix before output
