@@ -2,7 +2,7 @@
 name: im-designer
 description: "Translates a non-designer's vague design language into executable UI/UX requests for designers, developers, and AI tools. Handles Korean taste-words ('예쁘게' pretty, '깔끔하게' clean, '고급스럽게' premium, '세련되게' refined, '눈에 띄게' stand out, '부드럽게' soft, '이 색 말고 다른 색'), brand refs ('애플처럼'/'토스처럼'/'노션처럼' like Apple/Toss/Notion), and usability complaints ('잘 안 보여' hard to see, '선택된 건지 모르겠어', '눌러지는 건지 모르겠어'). Decomposes into component + state + property + accessibility terms and renders HTML options so the user can SEE and pick. Use whenever the user gives vague, taste-based, or brand-reference design feedback on any screen, button, card, sidebar, input, modal, dashboard, landing page, or app screen — even without the word 'design'. Skip when the user already uses precise design terms (tokens like color.primary, states like selected/hover/focus-visible, aria, WCAG contrast, or a concrete CSS change); trigger only for impression-based or brand-comparative feedback."
 metadata:
-  version: 1.4.0
+  version: 1.5.0
   updated: 2026-06-22
 ---
 
@@ -215,6 +215,17 @@ A render is not the end. For a non-designer it is the **conversation surface**. 
 - **A non-designer's reaction to a rendered result is higher-signal than your own aesthetic judgment.** A user noticing "테두리가 반복돼 보인다" can catch a structural flaw your token analysis missed — treat rendered-output feedback as the top-priority signal, not noise.
 - Do not stop at "pick one → write the final request". If the reaction reveals a new constraint, re-render with it applied (before/after) so the user confirms by seeing.
 - Procedure + the loop diagram in `references/visualization.md` · "The render → reaction → refine loop".
+
+## Proposal-first — lead with a proposal artifact
+For any **non-trivial** design change (re-skin, multi-property, IA/structure, or "어색해 / 심심해 / 톤 맞춰"-class feedback), do not jump to the final implementation. **First emit a standalone proposal HTML** the user can open and react to:
+
+- **diagnosis** — the observable problem(s) with measured evidence (widths, counts, mismatched tokens — not impressions).
+- **before/after OR option-compare** — current vs proposed, or 2–3 directions, rendered as real HTML (mode 5).
+- **token / spec table** — baseline values so the direction is concrete, not vibes.
+
+Then run the **render → reaction → refine** loop on that proposal. Only after the direction is locked, apply it to the real target. This separates *agreeing on a direction* (cheap, reversible) from *implementing it* (expensive) — and matches how non-designers decide: by seeing a concrete proposal, not reading a text spec.
+
+> Trivial single-property edits (one color, one spacing value) skip this and edit directly. The proposal artifact is for changes where the user needs to *see* the direction before committing.
 
 ## Before you render — quick gates
 Two checks before showing a mode-5 render:
