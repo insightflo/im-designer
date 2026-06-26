@@ -90,7 +90,7 @@ Convert everyday phrasing to formal names.
 Follow the **Standard Output Format** below. (The format IS the deliverable.)
 
 ## Standard Output Format
-The 18-section block below is the **spec/handoff** form — use it when the user wants something to send to a designer/dev/AI tool, or asks for a full breakdown. For a **non-designer**, a vague/taste request, or any "보여줘 / 체감 / 옵션 비교" cue, **lead with mode 5 (visualization)** instead — this audience decides by seeing, not reading (see Output Modes). Fill each section per the situation; mark inapplicable items "해당 없음" (n/a) — never leave blanks. **Produce the content in the user's language (Korean by default).**
+The 18-section block below is the **spec/handoff** form — use it when the user wants something to send to a designer/dev/AI tool, or asks for a full breakdown. **Which mode leads is decided by the Output Modes table below (single source of truth) — by default, ONE mode fits the receiver; non-designers / 감각어 / "보여줘·체감·옵션 비교" lead with mode 5 (render).** Fill each section per the situation; mark inapplicable items "해당 없음" (n/a) — never leave blanks. **Produce the content in the user's language (Korean by default).**
 
 ```
 [디자인 언어 번역]
@@ -188,7 +188,7 @@ Shift emphasis by purpose. Full format + writing guidance in `references/classif
 > | "개발자 구현" / "CSS·토큰" | mode 4 (dev hints) | — |
 > | ambiguous → must split interpretations | mode 5 option-compare first, **then** the matched mode | — |
 >
-> If it is still unclear which mode fits, ask in one line (or `AskUserQuestion`) — do not pick silently.
+> If it is still unclear which mode fits, ask via `AskUserQuestion` (never as free text) — do not pick silently.
 
 ## Handling ambiguity
 Split possible interpretations into 2–4 options, recommend the most likely, then write the final request.
@@ -262,3 +262,6 @@ For simple translations, this SKILL.md alone is enough. Read the relevant refere
 | `references/anti-generic.md` | you are about to render (mode 5) — guard the render against generic AI-slop (baseless gradients, card overuse, oversized hero) |
 | `references/visualization.md` | you need to render options or results as HTML (mode 5) |
 | `references/examples.md` | you want to reference 3 worked examples + bad/good pairs |
+
+## Measuring translation quality (out of scope here)
+This skill's *structure* is lint-clean (audit 100). Its real value — translation accuracy and how well it guides a non-designer to choose — is **measurable behavior, not structure**. A structural linter cannot see it. To optimize that (input → 18-section mapping accuracy, non-designer pick-rate on a rendered option set), use the `autoresearch-skills` loop, not this doc.

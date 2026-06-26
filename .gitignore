@@ -2,3 +2,6 @@
 *.swp
 __pycache__/
 *.pyc
+# 스킬 수정 백업
+*.bak.*
+.backups/

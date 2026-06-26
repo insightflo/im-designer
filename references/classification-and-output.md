@@ -83,4 +83,4 @@ Examples: state class `.chat-list-item.is-selected`; tokens `surface.base` / `co
 ### 5. Visualization for feel (render)
 When a non-designer can't judge from text, **render options or the result as actual HTML** so they compare and pick by seeing. Two patterns: option-comparison (narrow ambiguity) and before/after (confirm result). Full guidance + reusable HTML skeleton in `visualization.md`.
 
-> Default is to emit multiple modes. If the user wants only one mode, emit that and skip the rest.
+> Default is the **ONE mode** that fits the receiver (see SKILL.md · Output Modes table). Emit the others only on request ("전체 스페셜", "다 받아줘") — emitting all by default dilutes and wastes tokens.
